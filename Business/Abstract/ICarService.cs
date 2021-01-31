@@ -10,5 +10,6 @@ namespace Business.Abstract
     {
         List<Car> GetAll();
         string Add(Car car);
+        void CheckId(Car car);
     }
 }
