@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Business.Abstract;
+using Business.Concrete;
+using DataAccess.Concrete.InMemory;
+using System;
 
 namespace ConsoleUI
 {
@@ -6,7 +9,11 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ICarService carService = new CarManager(new InMemoryCarDal());
+            foreach (var car in carService.GetAll())
+            {
+                Console.WriteLine($"{car.Id} {car.BrandId} {car.ModelYear} {car.Description} {car.DailyPrice}");
+            }
         }
     }
 }
