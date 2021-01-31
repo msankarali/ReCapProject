@@ -30,6 +30,18 @@ namespace Business.Concrete
             }
         }
 
+        public void CheckId(Car car)
+        {
+            if (car.Id == 0)
+            {
+                _carDal.Add(car);
+            }
+            else
+            {
+                _carDal.Update(car);
+            }
+        }
+
         public List<Car> GetAll()
         {
             return _carDal.GetAll();

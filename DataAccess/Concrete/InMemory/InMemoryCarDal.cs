@@ -23,6 +23,7 @@ namespace DataAccess.Concrete.InMemory
         }
         public void Add(Car car)
         {
+            car.Id = _carList.Count + 1;
             _carList.Add(car);
         }
 
