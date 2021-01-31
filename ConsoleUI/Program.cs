@@ -12,33 +12,24 @@ namespace ConsoleUI
         {
             ICarService carService = new CarManager(new InMemoryCarDal());
 
-            carService.CheckId(new Car
+            carService.Add(new Car
             {
-                Id = 0,
-                BrandId = 2,
-                ColorId = 4,
+                Id = 6,
+                BrandId = 5,
+                ColorId = 6,
                 DailyPrice = 599,
                 Description = "TESLA",
                 ModelYear = 2021
             });
 
-            carService.CheckId(new Car
+            carService.Add(new Car
             {
-                Id = 2,
-                BrandId = 2,
-                ColorId = 4,
+                Id = 7,
+                BrandId = 5,
+                ColorId = 6,
                 DailyPrice = 499,
                 Description = "TESLA 2",
                 ModelYear = 2010
-            });
-
-            carService.CheckId(new Car
-            {
-                BrandId = 2,
-                ColorId = 5,
-                DailyPrice = 300,
-                Description = "TESLA 5",
-                ModelYear = 2008
             });
 
 

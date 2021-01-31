@@ -17,17 +17,9 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public string Add(Car car)
+        public void Add(Car car)
         {
-            if (car.DailyPrice < 600)
-            {
-                _carDal.Add(car);
-                return "Araba başarıyla eklendi!";
-            }
-            else
-            {
-                return "Arabanız ücret skalasını geçtiği için ekleyemezsiniz!";
-            }
+            _carDal.Add(car);
         }
 
         public void CheckId(Car car)
