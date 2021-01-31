@@ -9,8 +9,8 @@ namespace DataAccess.Abstract
     {
         Car GetById(int id);
         List<Car> GetAll();
-        void Add();
-        void Update();
-        void Delete();
+        void Add(Car car);
+        void Update(Car car);
+        void Delete(Car car);
     }
 }
