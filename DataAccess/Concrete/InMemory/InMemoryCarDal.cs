@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.InMemory
 {
-    public class InMemoryCarDal : ICarDal
+    public class InMemoryCarDal : InMemoryBaseRepositoryDal<Car>
     {
         List<Car> _carList;
         public InMemoryCarDal()
@@ -25,6 +25,7 @@ namespace DataAccess.Concrete.InMemory
         {
             car.Id = _carList.Count + 1;
             _carList.Add(car);
+            Console.WriteLine(car.Description + " added.");
         }
 
         public void Delete(Car car)
@@ -32,6 +33,7 @@ namespace DataAccess.Concrete.InMemory
             Car carToDelete = GetById(car.Id);
             _carList.Remove(carToDelete);
         }
+
 
         public List<Car> GetAll()
         {
