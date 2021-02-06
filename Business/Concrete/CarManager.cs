@@ -24,7 +24,7 @@ namespace Business.Concrete
 
         public void CheckId(Car car)
         {
-            if (car.Id == 0)
+            if (car.CarId == 0)
             {
                 _carDal.Add(car);
             }

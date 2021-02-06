@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
@@ -12,9 +13,16 @@ namespace ConsoleUI
         {
             ICarService carService = new CarManager(new InMemoryCarDal());
 
+            IBrandService brandService = new BrandManager(new EfBrandDal());
+
+            brandService.AddBrand(new Brand
+            {
+                BrandName = "Audi"
+            });
+
             carService.Add(new Car
             {
-                Id = 6,
+                CarId = 6,
                 BrandId = 5,
                 ColorId = 6,
                 DailyPrice = 599,
@@ -24,7 +32,7 @@ namespace ConsoleUI
 
             carService.Add(new Car
             {
-                Id = 7,
+                CarId = 7,
                 BrandId = 5,
                 ColorId = 6,
                 DailyPrice = 499,
@@ -35,7 +43,7 @@ namespace ConsoleUI
 
             foreach (var car in carService.GetAll())
             {
-                Console.WriteLine($"{car.Id} {car.BrandId} {car.ModelYear} {car.Description} {car.DailyPrice}");
+                Console.WriteLine($"{car.CarId} {car.BrandId} {car.ModelYear} {car.Description} {car.DailyPrice}");
             }
         }
     }
