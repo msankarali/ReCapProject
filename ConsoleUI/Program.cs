@@ -20,6 +20,10 @@ namespace ConsoleUI
                 BrandName = "Audi"
             });
 
+            var brandEntity = brandService.GetByBrandName("Audi");
+
+            brandService.Delete(brandEntity);
+
             carService.Add(new Car
             {
                 CarId = 6,

@@ -20,5 +20,20 @@ namespace Business.Concrete
         {
             _brandDal.Add(brand);
         }
+
+        public void Delete(Brand brand)
+        {
+            _brandDal.Delete(brand);
+        }
+
+        public Brand GetByBrandName(string brandName)
+        {
+            return _brandDal.Get(b => b.BrandName == brandName);
+        }
+
+        public Brand GetById(int id)
+        {
+            return _brandDal.GetById(id);
+        }
     }
 }
