@@ -11,39 +11,17 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            ICarService carService = new CarManager(new InMemoryCarDal());
-
             IBrandService brandService = new BrandManager(new EfBrandDal());
-
-            brandService.AddBrand(new Brand
-            {
-                BrandName = "Audi"
-            });
+            IColorService colorService = new ColorManager(new EfColorDal());
+            ICarService carService = new CarManager(new EfCarDal());
 
             var brandEntity = brandService.GetByBrandName("Audi");
+            Console.WriteLine(brandEntity.BrandName);
 
-            brandService.Delete(brandEntity);
-
-            carService.Add(new Car
+            foreach (var car in colorService.GetAllColors())
             {
-                CarId = 6,
-                BrandId = 5,
-                ColorId = 6,
-                DailyPrice = 599,
-                Description = "TESLA",
-                ModelYear = 2021
-            });
-
-            carService.Add(new Car
-            {
-                CarId = 7,
-                BrandId = 5,
-                ColorId = 6,
-                DailyPrice = 499,
-                Description = "TESLA 2",
-                ModelYear = 2010
-            });
-
+                Console.WriteLine($"{car.ColorName}");
+            }
 
             foreach (var car in carService.GetAll())
             {
