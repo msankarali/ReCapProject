@@ -27,6 +27,16 @@ namespace ConsoleUI
             {
                 Console.WriteLine($"{car.CarId} {car.BrandId} {car.ModelYear} {car.Description} {car.DailyPrice}");
             }
+
+            foreach (var brand in brandService.GetAllBrands())
+            {
+                Console.WriteLine($"{brand.BrandName}");
+            }
+
+            foreach (var car in carService.GetAllCarsWithDetails())
+            {
+                Console.WriteLine($"{car.Color} {car.Brand} {car.DailyPrice} {car.Description} {car.ModelYear}");
+            }
         }
     }
 }
