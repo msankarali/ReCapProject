@@ -7,6 +7,7 @@ using Entities.Concrete;
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleUI
 {
@@ -202,7 +203,10 @@ namespace ConsoleUI
         {
             if (!result.IsValid)
             {
-                ((List<ValidationFailure>)result.Errors).ForEach(e => Console.WriteLine(e.ErrorMessage));
+                //result.Errors.ToList().ForEach(e => Console.WriteLine(e.ErrorMessage));
+                foreach (var error in result.Errors)
+                    Console.WriteLine(error.ErrorMessage);
+
                 return true;
             }
             else return false;
