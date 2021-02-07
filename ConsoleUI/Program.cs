@@ -1,9 +1,12 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
+using Business.ValidationTools.FluentValidation;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
+using FluentValidation.Results;
 using System;
+using System.Collections.Generic;
 
 namespace ConsoleUI
 {
@@ -134,7 +137,23 @@ namespace ConsoleUI
                         Console.Write("Lütfen arabanın model yılını giriniz: ");
                         carEntityToAdd.ModelYear = short.Parse(Console.ReadLine());
 
-                        carService.Add(carEntityToAdd);
+
+                        bool HasError(Car car, ValidationResult result)
+                        {
+                            if (!result.IsValid)
+                            {
+                                ((List<ValidationFailure>)result.Errors).ForEach(e => Console.WriteLine(e.ErrorMessage));
+                                return true;
+                            }
+                            else return false;
+                        }
+
+                        CarValidator carValidator = new CarValidator();
+                        if (!HasError(carEntityToAdd, carValidator.Validate(carEntityToAdd)))
+                        {
+                            carService.Add(carEntityToAdd);
+                        }
+
                         break;
                     case "12":
                         Console.Clear();
@@ -193,6 +212,7 @@ namespace ConsoleUI
 
             //Works(brandService, colorService, carService);
         }
+
 
         private static void Works(IBrandService brandService, IColorService colorService, ICarService carService)
         {

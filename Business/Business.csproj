@@ -9,4 +9,8 @@
     <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.6.3" />
+  </ItemGroup>
+
 </Project>
