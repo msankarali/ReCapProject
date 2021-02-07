@@ -15,6 +15,11 @@ namespace ConsoleUI
             IColorService colorService = new ColorManager(new EfColorDal());
             ICarService carService = new CarManager(new EfCarDal());
 
+            foreach (var car in carService.GetAllCarsIfExist())
+            {
+                Console.WriteLine("Araba adı: " + car.CarName + ", Araba ücreti: " + car.DailyPrice + "!!");
+            }
+
             var brandEntity = brandService.GetByBrandName("Audi");
             Console.WriteLine(brandEntity.BrandName);
 

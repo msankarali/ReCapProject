@@ -50,6 +50,11 @@ namespace Business.Concrete
             return _carDal.GetAll(c => c.ColorId == colorId);
         }
 
+        public List<Car> GetAllCarsIfExist()
+        {
+            return _carDal.GetAll(c => c.IsActive == true);
+        }
+
         public List<CarDetailsDto> GetAllCarsWithDetails()
         {
             return _carDal.GetAllCarsWithDetails();

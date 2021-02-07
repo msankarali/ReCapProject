@@ -16,5 +16,6 @@ namespace Business.Abstract
         Car GetCarById(int carId);
         List<CarDetailsDto> GetAllCarsWithDetails();
         List<Car> GetAllCarsBetweenMinAndMax(int min, int max);
+        List<Car> GetAllCarsIfExist();
     }
 }
