@@ -17,6 +17,21 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (ReCapContext context = new ReCapContext())
             {
+                var result = context.Cars
+                    .Include(c => c.Color)
+                    .Include(c => c.Brand)
+                    .Select(c => new CarDetailsDto
+                    {
+                        Brand = c.Brand.BrandName,
+                        Color = c.Color.ColorName,
+                        DailyPrice = c.DailyPrice,
+                        Description = c.Description,
+                        ModelYear = c.ModelYear
+                    }).ToList();
+            }
+
+            using (ReCapContext context = new ReCapContext())
+            {
                 return (from car in context.Cars
                         join color in context.Colors on car.ColorId equals color.ColorId
                         join brand in context.Brands on car.BrandId equals brand.BrandId
