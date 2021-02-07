@@ -41,8 +41,33 @@ namespace DataAccess.Concrete.EntityFramework
                             BrandName = t2.BrandName == null ? "Marka yok" : t2.BrandName,
                             ColorName = t.ColorName == null ? "Renk yok" : t.ColorName,
                             DailyPrice = car.DailyPrice,
-                            CarName = car.CarName
+                            CarName = car.CarName,
+                            CarId = car.CarId,
+                            Description = car.Description,
+                            ModelYear = car.ModelYear
                         }).ToList();
+            }
+        }
+
+        public CarDetailsDto GetCarWithDetailById(int carId)
+        {
+            using (ReCapContext context = new ReCapContext())
+            {
+                var result = from car in context.Cars
+                             join color in context.Colors on car.ColorId equals color.ColorId
+                             join brand in context.Brands on car.BrandId equals brand.BrandId
+                             select new CarDetailsDto
+                             {
+                                 BrandName = brand.BrandName,
+                                 CarId = car.CarId,
+                                 CarName = car.CarName,
+                                 ColorName = color.ColorName,
+                                 DailyPrice = car.DailyPrice,
+                                 Description = car.Description,
+                                 ModelYear = car.ModelYear
+                             };
+
+                return result.SingleOrDefault(c => c.CarId == carId);
             }
         }
     }

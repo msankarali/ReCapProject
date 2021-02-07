@@ -18,5 +18,8 @@ namespace Business.Abstract
         List<Car> GetAllCarsBetweenMinAndMax(int min, int max);
         List<Car> GetAllCarsIfExist();
         List<Car> GetAllCarsIfExist(bool control);
+        void DeleteById(int carId);
+        CarDetailsDto GetCarWithDetailById(int carId);
+        void Update(Car car);
     }
 }

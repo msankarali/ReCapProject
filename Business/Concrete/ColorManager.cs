@@ -16,6 +16,11 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
+        public void Deneme()
+        {
+            //blabla
+        }
+
         public void Add(Color color)
         {
             _colorDal.Add(color);
@@ -39,6 +44,11 @@ namespace Business.Concrete
         public void Update(Color color)
         {
             _colorDal.Update(color);
+        }
+
+        public void DeleteById(int colorId)
+        {
+            _colorDal.Delete(_colorDal.Get(c => c.ColorId == colorId));
         }
     }
 }

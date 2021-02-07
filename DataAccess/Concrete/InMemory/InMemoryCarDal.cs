@@ -60,6 +60,11 @@ namespace DataAccess.Concrete.InMemory
             return _carList.SingleOrDefault(cl => cl.CarId == id);
         }
 
+        public CarDetailsDto GetCarWithDetailById(int carId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Car car)
         {
             Car carToUpdate = GetById(car.CarId);
