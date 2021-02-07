@@ -15,5 +15,6 @@ namespace Entities.DTOs
         public decimal DailyPrice { get; set; }
         public short ModelYear { get; set; }
         public string Description { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
