@@ -15,5 +15,6 @@ namespace Business.Abstract
         List<Car> GetAllCarsByColorId(int colorId);
         Car GetCarById(int carId);
         List<CarDetailsDto> GetAllCarsWithDetails();
+        List<Car> GetAllCarsBetweenMinAndMax(int min, int max);
     }
 }

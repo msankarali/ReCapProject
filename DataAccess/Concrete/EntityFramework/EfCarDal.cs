@@ -22,8 +22,8 @@ namespace DataAccess.Concrete.EntityFramework
                     .Include(c => c.Brand)
                     .Select(c => new CarDetailsDto
                     {
-                        BrandName = c.Brand.BrandName,
-                        ColorName = c.Color.ColorName,
+                        BrandName = c.Brand.BrandName == null ? "Marka yok" : c.Brand.BrandName,
+                        ColorName = c.Color.ColorName == null ? "Renk yok" : c.Color.ColorName,
                         DailyPrice = c.DailyPrice,
                         CarName = c.CarName
                     }).ToList();
@@ -32,12 +32,14 @@ namespace DataAccess.Concrete.EntityFramework
             using (ReCapContext context = new ReCapContext())
             {
                 return (from car in context.Cars
-                        join color in context.Colors on car.ColorId equals color.ColorId
-                        join brand in context.Brands on car.BrandId equals brand.BrandId
+                        join color in context.Colors on car.ColorId equals color.ColorId into temp
+                        from t in temp.DefaultIfEmpty()
+                        join brand in context.Brands on car.BrandId equals brand.BrandId into temp2
+                        from t2 in temp2.DefaultIfEmpty()
                         select new CarDetailsDto
                         {
-                            BrandName = brand.BrandName,
-                            ColorName = color.ColorName,
+                            BrandName = t2.BrandName == null ? "Marka yok" : t2.BrandName,
+                            ColorName = t.ColorName == null ? "Renk yok" : t.ColorName,
                             DailyPrice = car.DailyPrice,
                             CarName = car.CarName
                         }).ToList();

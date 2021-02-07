@@ -18,6 +18,16 @@ namespace ConsoleUI
             var brandEntity = brandService.GetByBrandName("Audi");
             Console.WriteLine(brandEntity.BrandName);
 
+
+            Console.WriteLine("-------");
+            foreach (var car in carService.GetAllCarsBetweenMinAndMax(50, 500))
+            {
+                Console.WriteLine("Araba adı: " + car.CarName + ", Araba ücreti: " + car.DailyPrice + "!!");
+                Console.WriteLine($"Araba adı: {car.CarName}, Araba ücreti: {car.DailyPrice}!!");
+                Console.WriteLine("Araba adı: {0}, Araba ücreti: {1}!!", car.CarName, car.DailyPrice);
+            }
+            Console.WriteLine("-------");
+
             foreach (var car in colorService.GetAllColors())
             {
                 Console.WriteLine($"{car.ColorName}");
