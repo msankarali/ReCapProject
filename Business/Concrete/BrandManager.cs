@@ -16,7 +16,7 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public void AddBrand(Brand brand)
+        public void Add(Brand brand)
         {
             _brandDal.Add(brand);
         }
@@ -36,14 +36,14 @@ namespace Business.Concrete
             return _brandDal.Get(b => b.BrandId == id);
         }
 
-        public void Deneme()
-        {
-
-        }
-
-        public List<Brand> GetAllBrands()
+        public List<Brand> GetAll()
         {
             return _brandDal.GetAll();
+        }
+
+        public void Update(Brand brand)
+        {
+            _brandDal.Update(brand);
         }
     }
 }

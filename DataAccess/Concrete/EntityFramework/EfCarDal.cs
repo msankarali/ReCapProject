@@ -22,11 +22,10 @@ namespace DataAccess.Concrete.EntityFramework
                     .Include(c => c.Brand)
                     .Select(c => new CarDetailsDto
                     {
-                        Brand = c.Brand.BrandName,
-                        Color = c.Color.ColorName,
+                        BrandName = c.Brand.BrandName,
+                        ColorName = c.Color.ColorName,
                         DailyPrice = c.DailyPrice,
-                        Description = c.Description,
-                        ModelYear = c.ModelYear
+                        CarName = c.CarName
                     }).ToList();
             }
 
@@ -37,11 +36,10 @@ namespace DataAccess.Concrete.EntityFramework
                         join brand in context.Brands on car.BrandId equals brand.BrandId
                         select new CarDetailsDto
                         {
-                            Brand = brand.BrandName,
-                            Color = color.ColorName,
+                            BrandName = brand.BrandName,
+                            ColorName = color.ColorName,
                             DailyPrice = car.DailyPrice,
-                            Description = car.Description,
-                            ModelYear = car.ModelYear
+                            CarName = car.CarName
                         }).ToList();
             }
         }

@@ -28,14 +28,14 @@ namespace ConsoleUI
                 Console.WriteLine($"{car.CarId} {car.BrandId} {car.ModelYear} {car.Description} {car.DailyPrice}");
             }
 
-            foreach (var brand in brandService.GetAllBrands())
+            foreach (var brand in brandService.GetAll())
             {
                 Console.WriteLine($"{brand.BrandName}");
             }
 
             foreach (var car in carService.GetAllCarsWithDetails())
             {
-                Console.WriteLine($"{car.Color} {car.Brand} {car.DailyPrice} {car.Description} {car.ModelYear}");
+                Console.WriteLine($"{car.ColorName} {car.BrandName} {car.CarName} {car.DailyPrice}");
             }
         }
     }
