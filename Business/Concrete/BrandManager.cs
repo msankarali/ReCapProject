@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,39 +18,54 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
+            return new SuccessResult("Marka başarıyla eklendi!");
         }
 
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
+            return new SuccessResult("Silme işlemi başarılı!");
         }
 
-        public Brand GetByBrandName(string brandName)
+        public IDataResult<Brand> GetByBrandName(string brandName)
         {
-            return _brandDal.Get(b => b.BrandName == brandName);
+            var data = _brandDal.Get(b => b.BrandName == brandName);
+            return new SuccessDataResult<Brand>(data, "Sonuç başarılı!");
         }
 
-        public Brand GetById(int id)
+        public IDataResult<Brand> GetById(int id)
         {
-            return _brandDal.Get(b => b.BrandId == id);
+            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == id), "Marka çekildi!");
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandDal.GetAll();
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
 
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
+            if (brand.BrandName.Length < 2 && brand.BrandName.Length > 100)
+            {
+                return new ErrorResult(Messages.CarUpdateError, new List<string>
+                {
+                    Messages.CarShouldHaveMinTwoCharacters,
+                    Messages.CarShouldHaveMaxHundredCharacters
+                });
+            }
+
             _brandDal.Update(brand);
+            return new SuccessResult(Messages.CarAdded);
         }
 
-        public void DeleteById(int brandId)
+        public IResult DeleteById(int brandId)
         {
+            var deletedCarEntity = _brandDal.Get(b => b.BrandId == brandId).BrandName;
             _brandDal.Delete(_brandDal.Get(b => b.BrandId == brandId));
+            return new SuccessResult($"{deletedCarEntity} markası silindi!");
         }
     }
 }
