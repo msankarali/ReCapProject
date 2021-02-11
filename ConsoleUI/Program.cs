@@ -20,6 +20,8 @@ namespace ConsoleUI
             ICarService carService = new CarManager(new EfCarDal());
             IConsoleService consoleService = new ConsoleManager();
 
+            brandService.GetBrand();
+
             var menus = new string[]
             {
                 "Marka ekle", "Markaları listele", "Marka sil", "Marka getir", "Marka güncelle",

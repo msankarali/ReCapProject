@@ -67,5 +67,10 @@ namespace Business.Concrete
             _brandDal.Delete(_brandDal.Get(b => b.BrandId == brandId));
             return new SuccessResult($"{deletedCarEntity} markası silindi!");
         }
+
+        public void GetBrand()
+        {
+            _brandDal.GetListWithCars();
+        }
     }
 }
