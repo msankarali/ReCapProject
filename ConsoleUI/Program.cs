@@ -18,15 +18,18 @@ namespace ConsoleUI
             IBrandService brandService = new BrandManager(new EfBrandDal());
             IColorService colorService = new ColorManager(new EfColorDal());
             ICarService carService = new CarManager(new EfCarDal());
+            IRentalService rentalService = new RentalManager(new EfRentalDal());
+            ICustomerService customerService = new CustomerManageer(new EfCustomerDal());
             IConsoleService consoleService = new ConsoleManager();
 
-            brandService.GetBrand();
+            //brandService.GetBrand();
 
             var menus = new string[]
             {
                 "Marka ekle", "Markaları listele", "Marka sil", "Marka getir", "Marka güncelle",
                 "Renk ekle", "Renkleri listele", "Renk sil", "Renk getir", "Renk güncelle",
                 "Araba ekle", "Arabaları listele", "Araba sil", "Araba getir", "Araba güncelle",
+                "Müşteri Ekle", "Araba Kirala"
 
             };
 
@@ -197,6 +200,22 @@ namespace ConsoleUI
                         carEntityToUpdate.ModelYear = short.Parse(Console.ReadLine());
 
                         carService.Update(carEntityToUpdate);
+                        break;
+                    case "16":
+                        //"Müşteri Ekle", "Araba Kirala"
+                        customerService.Add(new Customer
+                        {
+                            UserId = 1,
+                            CompanyName = "MSA"
+                        });
+
+                        break;
+                    case "17":
+                        consoleService.GetAllCarsIfNotRented(carService.GetAllCarsIfNotRented().Data);
+                        Console.WriteLine("Lütfen kiralamak istediğiniz arabanın Id'sini giriniz:");
+                        inputId = int.Parse(Console.ReadLine());
+                        var asd = rentalService.Rent(inputId, 1);
+                        Console.WriteLine(asd.Message);
                         break;
                     default:
                         Console.WriteLine("Yanlış seçim yaptınız!");

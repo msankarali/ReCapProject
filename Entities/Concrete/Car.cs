@@ -17,6 +17,7 @@ namespace Entities.Concrete
         public Brand Brand { get; set; }
         public Color Color { get; set; }
         public bool IsActive { get; set; } = true;
+        public List<Rental> Rentals { get; set; }
         //public bool IsDeleted { get; set; } = false;
     }
 }

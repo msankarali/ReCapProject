@@ -28,6 +28,16 @@ namespace ConsoleUI
             Console.WriteLine(@"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
         }
 
+        public void GetAllCarsIfNotRented(List<Car> cars)
+        {
+            Console.WriteLine(@"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+            foreach (var car in cars)
+            {
+                Console.WriteLine($"{car.CarId}\t{car.ModelYear}\t{car.CarName}\t{car.Description}");
+            }
+            Console.WriteLine(@"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+        }
+
         public void GetAllColors(List<Color> colors)
         {
             Console.WriteLine("******************************");

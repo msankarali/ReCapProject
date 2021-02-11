@@ -7,6 +7,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -70,6 +71,12 @@ namespace Business.Concrete
         public IDataResult<List<Car>> GetAllCarsIfExist(bool control)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.IsActive == control));
+        }
+
+        public IDataResult<List<Car>> GetAllCarsIfNotRented()
+        {
+            var result = new SuccessDataResult<List<Car>>(_carDal.GetAll(c => !c.Rentals.Any(r => r.ReturnDate == null)));
+            return result;
         }
 
         public IDataResult<List<CarDetailsDto>> GetAllCarsWithDetails()

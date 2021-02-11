@@ -12,5 +12,6 @@ namespace ConsoleUI
         void GetAllBrands(List<Brand> brands);
         void GetAllColors(List<Color> colors);
         void GetAllCars(List<CarDetailsDto> cars);
+        void GetAllCarsIfNotRented(List<Car> cars);
     }
 }

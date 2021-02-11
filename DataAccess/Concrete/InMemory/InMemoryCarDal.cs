@@ -1,4 +1,5 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.InMemory
 {
@@ -61,6 +63,11 @@ namespace DataAccess.Concrete.InMemory
         }
 
         public CarDetailsDto GetCarWithDetailById(int carId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Car GetLast(Expression<Func<Car, bool>> predicate)
         {
             throw new NotImplementedException();
         }
