@@ -48,11 +48,11 @@ namespace ConsoleUI
                         break;
                     case "2":
                         Console.Clear();
-                        consoleService.GetAllBrands(brandService.GetAll());
+                        consoleService.GetAllBrands(brandService.GetAll().Data);
                         break;
                     case "3":
                         Console.Clear();
-                        consoleService.GetAllBrands(brandService.GetAll());
+                        consoleService.GetAllBrands(brandService.GetAll().Data);
                         Console.Write("Lütfen silmek istediğiniz markanın Id'sini giriniz: ");
                         inputId = int.Parse(Console.ReadLine());
                         brandService.DeleteById(inputId);
@@ -61,15 +61,15 @@ namespace ConsoleUI
                         Console.Clear();
                         Console.Write("Lütfen getirmek istediğiniz Marka Id'sini giriniz: ");
                         inputId = int.Parse(Console.ReadLine());
-                        var brandEntity = brandService.GetById(inputId);
+                        var brandEntity = brandService.GetById(inputId).Data;
                         Console.WriteLine("Marka ismi: " + brandEntity.BrandName);
                         break;
                     case "5":
                         Console.Clear();
-                        consoleService.GetAllBrands(brandService.GetAll());
+                        consoleService.GetAllBrands(brandService.GetAll().Data);
                         Console.Write("Lütfen güncellemek istediğiniz Marka Id'sini giriniz: ");
                         inputId = int.Parse(Console.ReadLine());
-                        var brandEntityToUpdate = brandService.GetById(inputId);
+                        var brandEntityToUpdate = brandService.GetById(inputId).Data;
                         Console.WriteLine("Marka ismi: " + brandEntityToUpdate.BrandName);
                         Console.Write("Lütfen güncel Marka adını giriniz: ");
                         brandEntityToUpdate.BrandName = Console.ReadLine();
@@ -86,28 +86,34 @@ namespace ConsoleUI
                         break;
                     case "7":
                         Console.Clear();
-                        consoleService.GetAllColors(colorService.GetAllColors());
+                        consoleService.GetAllColors(colorService.GetAllColors().Data);
                         break;
                     case "8":
                         Console.Clear();
-                        consoleService.GetAllColors(colorService.GetAllColors());
+                        consoleService.GetAllColors(colorService.GetAllColors().Data);
                         Console.Write("Lütfen silmek istediğiniz Rengin Id'sini giriniz: ");
                         inputId = int.Parse(Console.ReadLine());
-                        colorService.DeleteById(inputId);
+                        var result = colorService.DeleteById(inputId);
+                        if (!result.Success)
+                        {
+                            Console.WriteLine("Hata mesaji: {0}", result.Message);
+                            foreach (var error in result.Errors) Console.WriteLine(error);
+                        }
+
                         break;
                     case "9":
                         Console.Clear();
                         Console.Write("Lütfen getirmek istediğiniz Renk Id'sini giriniz: ");
                         inputId = int.Parse(Console.ReadLine());
-                        var colorEntity = colorService.GetById(inputId);
+                        var colorEntity = colorService.GetById(inputId).Data;
                         Console.WriteLine("Marka ismi: " + colorEntity.ColorName);
                         break;
                     case "10":
                         Console.Clear();
-                        consoleService.GetAllColors(colorService.GetAllColors());
+                        consoleService.GetAllColors(colorService.GetAllColors().Data);
                         Console.Write("Lütfen güncellemek istediğiniz Renk Id'sini giriniz: ");
                         inputId = int.Parse(Console.ReadLine());
-                        var colorEntityToUpdate = colorService.GetById(inputId);
+                        var colorEntityToUpdate = colorService.GetById(inputId).Data;
                         Console.WriteLine("Marka ismi: " + colorEntityToUpdate.ColorName);
                         Console.Write("Lütfen güncel Renk adını giriniz: ");
                         colorEntityToUpdate.ColorName = Console.ReadLine();
@@ -121,11 +127,11 @@ namespace ConsoleUI
                         Console.Write("Lütfen arabanın adını yazınız: ");
                         carEntityToAdd.CarName = Console.ReadLine();
 
-                        consoleService.GetAllBrands(brandService.GetAll());
+                        consoleService.GetAllBrands(brandService.GetAll().Data);
                         Console.Write("Lütfen arabanın Marka Id'sini giriniz: ");
                         carEntityToAdd.BrandId = int.Parse(Console.ReadLine());
 
-                        consoleService.GetAllColors(colorService.GetAllColors());
+                        consoleService.GetAllColors(colorService.GetAllColors().Data);
                         Console.Write("Lütfen arabanın Renk Id'sini giriniz: ");
                         carEntityToAdd.ColorId = int.Parse(Console.ReadLine());
 
@@ -143,11 +149,11 @@ namespace ConsoleUI
                         break;
                     case "12":
                         Console.Clear();
-                        consoleService.GetAllCars(carService.GetAllCarsWithDetails());
+                        consoleService.GetAllCars(carService.GetAllCarsWithDetails().Data);
                         break;
                     case "13":
                         Console.Clear();
-                        consoleService.GetAllCars(carService.GetAllCarsWithDetails());
+                        consoleService.GetAllCars(carService.GetAllCarsWithDetails().Data);
                         Console.Write("Lütfen silmek istediğiniz arabanın Id'sini giriniz: ");
                         inputId = int.Parse(Console.ReadLine());
                         carService.DeleteById(inputId);
@@ -156,26 +162,26 @@ namespace ConsoleUI
                         Console.Clear();
                         Console.Write("Lütfen getirmek istediğiniz arabanın Id'sini giriniz: ");
                         inputId = int.Parse(Console.ReadLine());
-                        var carEntity = carService.GetCarWithDetailById(inputId);
+                        var carEntity = carService.GetCarWithDetailById(inputId).Data;
                         Console.WriteLine($"{carEntity.CarId}\t{carEntity.ModelYear}\t{carEntity.BrandName}\t{carEntity.CarName}\t{carEntity.ColorName}\t{carEntity.Description}");
                         break;
                     case "15":
                         Console.Clear();
-                        consoleService.GetAllCars(carService.GetAllCarsWithDetails());
+                        consoleService.GetAllCars(carService.GetAllCarsWithDetails().Data);
                         Console.Write("Lütfen güncellemek istediğiniz arabanın Id'sini giriniz: ");
                         inputId = int.Parse(Console.ReadLine());
-                        var carEntityInfo = carService.GetCarWithDetailById(inputId);
+                        var carEntityInfo = carService.GetCarWithDetailById(inputId).Data;
                         Console.WriteLine($"{carEntityInfo.CarId}\t{carEntityInfo.ModelYear}\t{carEntityInfo.BrandName}\t{carEntityInfo.CarName}\t{carEntityInfo.ColorName}\t{carEntityInfo.Description}");
-                        var carEntityToUpdate = carService.GetCarById(inputId);
+                        var carEntityToUpdate = carService.GetCarById(inputId).Data;
 
                         Console.Write("Lütfen arabanın adını yazınız: ");
                         carEntityToUpdate.CarName = Console.ReadLine();
 
-                        consoleService.GetAllBrands(brandService.GetAll());
+                        consoleService.GetAllBrands(brandService.GetAll().Data);
                         Console.Write("Lütfen arabanın Marka Id'sini giriniz: ");
                         carEntityToUpdate.BrandId = int.Parse(Console.ReadLine());
 
-                        consoleService.GetAllColors(colorService.GetAllColors());
+                        consoleService.GetAllColors(colorService.GetAllColors().Data);
                         Console.Write("Lütfen arabanın Renk Id'sini giriniz: ");
                         carEntityToUpdate.ColorId = int.Parse(Console.ReadLine());
 
@@ -215,28 +221,28 @@ namespace ConsoleUI
         private static void Works(IBrandService brandService, IColorService colorService, ICarService carService)
         {
             Console.WriteLine("Yayında olmayan araçlar");
-            foreach (var car in carService.GetAllCarsIfExist(false))
+            foreach (var car in carService.GetAllCarsIfExist(false).Data)
             {
                 Console.WriteLine("Araba adı: " + car.CarName + ", Araba ücreti: " + car.DailyPrice + "!!");
             }
 
             Console.WriteLine("Yayında olan araçlar");
-            foreach (var car in carService.GetAllCarsIfExist(true))
+            foreach (var car in carService.GetAllCarsIfExist(true).Data)
             {
                 Console.WriteLine("Araba adı: " + car.CarName + ", Araba ücreti: " + car.DailyPrice + "!!");
             }
 
-            foreach (var car in carService.GetAllCarsIfExist())
+            foreach (var car in carService.GetAllCarsIfExist().Data)
             {
                 Console.WriteLine("Araba adı: " + car.CarName + ", Araba ücreti: " + car.DailyPrice + "!!");
             }
 
-            var brandEntity = brandService.GetByBrandName("Audi");
+            var brandEntity = brandService.GetByBrandName("Audi").Data;
             Console.WriteLine(brandEntity.BrandName);
 
 
             Console.WriteLine("-------");
-            foreach (var car in carService.GetAllCarsBetweenMinAndMax(50, 500))
+            foreach (var car in carService.GetAllCarsBetweenMinAndMax(50, 500).Data)
             {
                 Console.WriteLine("Araba adı: " + car.CarName + ", Araba ücreti: " + car.DailyPrice + "!!");
                 Console.WriteLine($"Araba adı: {car.CarName}, Araba ücreti: {car.DailyPrice}!!");
@@ -244,22 +250,22 @@ namespace ConsoleUI
             }
             Console.WriteLine("-------");
 
-            foreach (var car in colorService.GetAllColors())
+            foreach (var car in colorService.GetAllColors().Data)
             {
                 Console.WriteLine($"{car.ColorName}");
             }
 
-            foreach (var car in carService.GetAll())
+            foreach (var car in carService.GetAll().Data)
             {
                 Console.WriteLine($"{car.CarId} {car.BrandId} {car.ModelYear} {car.Description} {car.DailyPrice}");
             }
 
-            foreach (var brand in brandService.GetAll())
+            foreach (var brand in brandService.GetAll().Data)
             {
                 Console.WriteLine($"{brand.BrandName}");
             }
 
-            foreach (var car in carService.GetAllCarsWithDetails())
+            foreach (var car in carService.GetAllCarsWithDetails().Data)
             {
                 Console.WriteLine($"{car.ColorName} {car.BrandName} {car.CarName} {car.DailyPrice}");
             }
