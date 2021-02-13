@@ -12,5 +12,7 @@ namespace Entities.Concrete
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Telefon { get; set; }
+        public string Telefon2 { get; set; }
     }
 }
