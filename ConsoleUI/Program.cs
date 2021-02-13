@@ -22,6 +22,20 @@ namespace ConsoleUI
             ICustomerService customerService = new CustomerManageer(new EfCustomerDal());
             IConsoleService consoleService = new ConsoleManager();
 
+
+            var brandsWithCars = brandService.GetBrand();
+
+            foreach (var brand in brandsWithCars)
+            {
+                Console.Write(brand.BrandName + " => ");
+                foreach (var car in brand.CarList)
+                {
+                    Console.Write(car.CarName);
+                }
+                Console.WriteLine();
+            }
+
+
             //brandService.GetBrand();
 
             var menus = new string[]
