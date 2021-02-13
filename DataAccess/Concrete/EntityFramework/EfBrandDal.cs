@@ -17,32 +17,49 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (ReCapContext context = new ReCapContext())
             {
+
                 var listOfBrandsWithCars = context.Brands
-                    .Include(b => b.Cars).ToList();
-                var result = new List<BrandGetListWithCarsDto>();
-                foreach (var item in listOfBrandsWithCars)
-                {
-                    var carList = new List<BrandGetListWithCarsDto_CarItem>();
-                    foreach (var carItem in item.Cars)
+                    .Include(b => b.Cars)
+                    .Select(b => new BrandGetListWithCarsDto
                     {
-                        carList.Add(new BrandGetListWithCarsDto_CarItem
-                        {
-                            CarName = carItem.CarName,
-                            ModelYear = carItem.ModelYear
-                        });
-                    }
-                    result.Add(new BrandGetListWithCarsDto
-                    {
-                        BrandName = item.BrandName,
-                        CarList = carList
-                    });
+                        BrandName = b.BrandName,
+                        CarList = b.Cars
+                    }).ToList();
 
 
-                }
+                //TODO: DTO icerisinde entitinin kendisini kullanmak??
 
-                return result;
 
+
+
+
+
+
+                //var listOfBrandsWithCars = context.Brands
+                //    .Include(b => b.Cars).ToList();
+                //var result = new List<BrandGetListWithCarsDto>();
+                //foreach (var item in listOfBrandsWithCars)
+                //{
+                //    var carList = new List<BrandGetListWithCarsDto_CarItem>();
+                //    foreach (var carItem in item.Cars)
+                //    {
+                //        carList.Add(new BrandGetListWithCarsDto_CarItem
+                //        {
+                //            CarName = carItem.CarName,
+                //            ModelYear = carItem.ModelYear
+                //        });
+                //    }
+                //    result.Add(new BrandGetListWithCarsDto
+                //    {
+                //        BrandName = item.BrandName,
+                //        CarList = carList
+                //    });
+
+
+                return listOfBrandsWithCars;
             }
+
+
         }
     }
 }

@@ -49,6 +49,7 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
+
         public CarDetailsDto GetCarWithDetailById(int carId)
         {
             using (ReCapContext context = new ReCapContext())
