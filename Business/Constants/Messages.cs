@@ -9,6 +9,8 @@
         public const string CarUpdateError = "Araba güncellerken hata oluştu!";
         public const string CarShouldHaveMinTwoCharacters = "Araba markası en az 2 karakter olmalı!";
         public const string CarShouldHaveMaxHundredCharacters = "Araba markası en çok 100 karakter olmalı";
+        public const string CarGotBack = "Araba başarıyla teslim edildi!";
+        public const string CarNotGotBack = "Geçersiz bir teselimat işlemi yapılmaya çalışıldı!";
 
         #endregion Car Update error messages
 

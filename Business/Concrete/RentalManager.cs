@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -39,6 +40,17 @@ namespace Business.Concrete
                 ReturnDate = null
             });
             return new SuccessResult("Araç kiralama işlemi başarılı!");
+        }
+
+        public IResult ReturnCar(int carId, int customerId)
+        {
+            var result = _rentalDal.Get(r => r.CarId == carId && r.ReturnDate == null);
+
+            if (result != null) return new ErrorResult(Messages.CarNotGotBack);
+
+            result.ReturnDate = DateTime.Now;
+            _rentalDal.Update(result);
+            return new SuccessResult(Messages.CarGotBack);
         }
     }
 }

@@ -12,11 +12,16 @@ namespace ConsoleUI
     {
         private static void Main(string[] args)
         {
+            //AddNewFile
+
+
+
             IBrandService brandService = new BrandManager(new EfBrandDal());
             IColorService colorService = new ColorManager(new EfColorDal());
             ICarService carService = new CarManager(new EfCarDal());
             IRentalService rentalService = new RentalManager(new EfRentalDal());
             ICustomerService customerService = new CustomerManageer(new EfCustomerDal());
+            IUserService userService = new UserManager(new EfUserDal());
             IConsoleService consoleService = new ConsoleManager();
 
             var brandsWithCars = brandService.GetBrand();
@@ -223,21 +228,45 @@ namespace ConsoleUI
                         break;
 
                     case "16":
-                        //"Müşteri Ekle", "Araba Kirala"
-                        customerService.Add(new Customer
+                        //"Araba Kirala"
+                        Console.Clear();
+                        var userListResult = userService.GetAllUsers();
+                        if (userListResult.Success)
                         {
-                            UserId = 1,
-                            CompanyName = "MSA"
-                        });
+                            consoleService.GetAllUsers(userListResult.Data);
+
+                            var customerEntityToAdd = new Customer();
+
+                            Console.WriteLine("Lütfen kullanıcı seçiniz: ");
+                            customerEntityToAdd.UserId = int.Parse(Console.ReadLine());
+
+                            Console.WriteLine("Lütfen kullanıcı firmasını giriniz: ");
+                            customerEntityToAdd.CompanyName = Console.ReadLine();
+
+                            customerService.Add(customerEntityToAdd);
+                        }
+                        else Console.WriteLine("Hiçbir kullanıcı bulunamadı!");
 
                         break;
 
                     case "17":
+                        Console.Clear();
+
+                        var rentalEntityToAdd = new Rental();
+
                         consoleService.GetAllCarsIfNotRented(carService.GetAllCarsIfNotRented().Data);
+
                         Console.WriteLine("Lütfen kiralamak istediğiniz arabanın Id'sini giriniz:");
-                        inputId = int.Parse(Console.ReadLine());
-                        var asd = rentalService.Rent(inputId, 1);
-                        Console.WriteLine(asd.Message);
+                        rentalEntityToAdd.CarId = int.Parse(Console.ReadLine());
+
+                        Console.WriteLine();
+
+                        consoleService.GetAllCustomers(customerService.GetAllCustomers().Data);
+                        Console.WriteLine("Lütfen müşteri Id'sini giriniz: ");
+                        rentalEntityToAdd.CustomerId = int.Parse(Console.ReadLine());
+
+                        rentalService.
+
                         break;
 
                     default:

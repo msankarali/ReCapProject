@@ -47,6 +47,26 @@ namespace ConsoleUI
             Console.WriteLine("******************************");
         }
 
+        public void GetAllCustomers(List<Customer> customers)
+        {
+            Console.WriteLine("******************************");
+            foreach (var customer in customers)
+            {
+                Console.WriteLine($"{customer.CustomerId} {customer.CompanyName}");
+            }
+            Console.WriteLine("******************************");
+        }
+
+        public void GetAllUsers(List<User> users)
+        {
+            Console.WriteLine("******************************");
+            foreach (var user in users)
+            {
+                Console.WriteLine($"{user.UserId} {user.FirstName} {user.LastName} {user.Email}");
+            }
+            Console.WriteLine("******************************");
+        }
+
         public void GetMenus(string[] menus)
         {
             Console.WriteLine("------------------------------");

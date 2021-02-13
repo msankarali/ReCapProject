@@ -13,6 +13,8 @@ namespace ConsoleUI
         void GetAllColors(List<Color> colors);
 
         void GetAllCars(List<CarDetailsDto> cars);
+        void GetAllUsers(List<User> users);
+        void GetAllCustomers(List<Customer> users);
 
         void GetAllCarsIfNotRented(List<Car> cars);
     }
