@@ -1,19 +1,17 @@
-﻿using Core.DataAccess;
-using DataAccess.Abstract;
+﻿using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.InMemory
 {
     public class InMemoryCarDal : ICarDal
     {
-        List<Car> _carList;
+        private List<Car> _carList;
+
         public InMemoryCarDal()
         {
             _carList = new List<Car>
@@ -25,6 +23,7 @@ namespace DataAccess.Concrete.InMemory
                 new Car{CarId = 5, BrandId = 3, ColorId = 4, DailyPrice = 150, ModelYear = 2014, Description = "Dacia Duster"}
             };
         }
+
         public void Add(Car car)
         {
             car.CarId = _carList.Count + 1;

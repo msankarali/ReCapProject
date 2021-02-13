@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Core.Utilities.Results
 {
@@ -8,8 +6,10 @@ namespace Core.Utilities.Results
     {
         public Result(bool success, string message, List<string> errors)
             : this(success, message) => Errors = errors;
+
         public Result(bool success, string message)
             : this(success) => Message = message;
+
         public Result(bool success) => Success = success;
 
         public bool Success { get; }

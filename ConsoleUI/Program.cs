@@ -2,18 +2,15 @@
 using Business.Concrete;
 using Business.ValidationTools.FluentValidation;
 using DataAccess.Concrete.EntityFramework;
-using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using FluentValidation.Results;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ConsoleUI
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             IBrandService brandService = new BrandManager(new EfBrandDal());
             IColorService colorService = new ColorManager(new EfColorDal());
@@ -21,7 +18,6 @@ namespace ConsoleUI
             IRentalService rentalService = new RentalManager(new EfRentalDal());
             ICustomerService customerService = new CustomerManageer(new EfCustomerDal());
             IConsoleService consoleService = new ConsoleManager();
-
 
             var brandsWithCars = brandService.GetBrand();
 
@@ -35,7 +31,6 @@ namespace ConsoleUI
                 Console.WriteLine();
             }
 
-
             //brandService.GetBrand();
 
             var menus = new string[]
@@ -44,7 +39,6 @@ namespace ConsoleUI
                 "Renk ekle", "Renkleri listele", "Renk sil", "Renk getir", "Renk güncelle",
                 "Araba ekle", "Arabaları listele", "Araba sil", "Araba getir", "Araba güncelle",
                 "Müşteri Ekle", "Araba Kirala"
-
             };
 
             string input = "";
@@ -65,10 +59,12 @@ namespace ConsoleUI
                             BrandName = Console.ReadLine()
                         });
                         break;
+
                     case "2":
                         Console.Clear();
                         consoleService.GetAllBrands(brandService.GetAll().Data);
                         break;
+
                     case "3":
                         Console.Clear();
                         consoleService.GetAllBrands(brandService.GetAll().Data);
@@ -76,6 +72,7 @@ namespace ConsoleUI
                         inputId = int.Parse(Console.ReadLine());
                         brandService.DeleteById(inputId);
                         break;
+
                     case "4":
                         Console.Clear();
                         Console.Write("Lütfen getirmek istediğiniz Marka Id'sini giriniz: ");
@@ -83,6 +80,7 @@ namespace ConsoleUI
                         var brandEntity = brandService.GetById(inputId).Data;
                         Console.WriteLine("Marka ismi: " + brandEntity.BrandName);
                         break;
+
                     case "5":
                         Console.Clear();
                         consoleService.GetAllBrands(brandService.GetAll().Data);
@@ -103,10 +101,12 @@ namespace ConsoleUI
                             ColorName = Console.ReadLine()
                         });
                         break;
+
                     case "7":
                         Console.Clear();
                         consoleService.GetAllColors(colorService.GetAllColors().Data);
                         break;
+
                     case "8":
                         Console.Clear();
                         consoleService.GetAllColors(colorService.GetAllColors().Data);
@@ -120,6 +120,7 @@ namespace ConsoleUI
                         }
 
                         break;
+
                     case "9":
                         Console.Clear();
                         Console.Write("Lütfen getirmek istediğiniz Renk Id'sini giriniz: ");
@@ -127,6 +128,7 @@ namespace ConsoleUI
                         var colorEntity = colorService.GetById(inputId).Data;
                         Console.WriteLine("Marka ismi: " + colorEntity.ColorName);
                         break;
+
                     case "10":
                         Console.Clear();
                         consoleService.GetAllColors(colorService.GetAllColors().Data);
@@ -166,10 +168,12 @@ namespace ConsoleUI
                         CarValidator carValidator = new CarValidator();
                         if (!HasError(carValidator.Validate(carEntityToAdd))) carService.Add(carEntityToAdd);
                         break;
+
                     case "12":
                         Console.Clear();
                         consoleService.GetAllCars(carService.GetAllCarsWithDetails().Data);
                         break;
+
                     case "13":
                         Console.Clear();
                         consoleService.GetAllCars(carService.GetAllCarsWithDetails().Data);
@@ -177,6 +181,7 @@ namespace ConsoleUI
                         inputId = int.Parse(Console.ReadLine());
                         carService.DeleteById(inputId);
                         break;
+
                     case "14":
                         Console.Clear();
                         Console.Write("Lütfen getirmek istediğiniz arabanın Id'sini giriniz: ");
@@ -184,6 +189,7 @@ namespace ConsoleUI
                         var carEntity = carService.GetCarWithDetailById(inputId).Data;
                         Console.WriteLine($"{carEntity.CarId}\t{carEntity.ModelYear}\t{carEntity.BrandName}\t{carEntity.CarName}\t{carEntity.ColorName}\t{carEntity.Description}");
                         break;
+
                     case "15":
                         Console.Clear();
                         consoleService.GetAllCars(carService.GetAllCarsWithDetails().Data);
@@ -215,6 +221,7 @@ namespace ConsoleUI
 
                         carService.Update(carEntityToUpdate);
                         break;
+
                     case "16":
                         //"Müşteri Ekle", "Araba Kirala"
                         customerService.Add(new Customer
@@ -224,6 +231,7 @@ namespace ConsoleUI
                         });
 
                         break;
+
                     case "17":
                         consoleService.GetAllCarsIfNotRented(carService.GetAllCarsIfNotRented().Data);
                         Console.WriteLine("Lütfen kiralamak istediğiniz arabanın Id'sini giriniz:");
@@ -231,6 +239,7 @@ namespace ConsoleUI
                         var asd = rentalService.Rent(inputId, 1);
                         Console.WriteLine(asd.Message);
                         break;
+
                     default:
                         Console.WriteLine("Yanlış seçim yaptınız!");
                         break;
@@ -274,7 +283,6 @@ namespace ConsoleUI
 
             var brandEntity = brandService.GetByBrandName("Audi").Data;
             Console.WriteLine(brandEntity.BrandName);
-
 
             Console.WriteLine("-------");
             foreach (var car in carService.GetAllCarsBetweenMinAndMax(50, 500).Data)

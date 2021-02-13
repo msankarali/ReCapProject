@@ -2,9 +2,6 @@
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Concrete
 {
@@ -24,4 +21,5 @@ namespace Business.Concrete
         }
     }
 }
+
 //TODO: Clean Code, Manager'da ki metodların içini doldurmayın, attribute oluşturun

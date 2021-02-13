@@ -2,13 +2,10 @@
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
-using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.DTOs;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Business.Concrete
 {
@@ -33,7 +30,6 @@ namespace Business.Concrete
                 Messages.CarShouldHaveMin0DailyPrice,
                 Messages.CarShouldHaveMin2Character
             });
-
         }
 
         public IResult DeleteById(int carId)
@@ -44,7 +40,6 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAll()
         {
-
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
