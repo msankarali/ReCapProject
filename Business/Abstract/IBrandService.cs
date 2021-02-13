@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,6 +17,6 @@ namespace Business.Abstract
         IDataResult<List<Brand>> GetAll();
         IDataResult<Brand> GetByBrandName(string brandName);
 
-        void GetBrand();
+        List<BrandGetListWithCarsDto> GetBrand();
     }
 }

@@ -24,3 +24,4 @@ namespace Business.Concrete
         }
     }
 }
+//TODO: Clean Code, Manager'da ki metodların içini doldurmayın, attribute oluşturun

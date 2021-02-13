@@ -3,6 +3,7 @@ using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -68,9 +69,9 @@ namespace Business.Concrete
             return new SuccessResult($"{deletedCarEntity} markası silindi!");
         }
 
-        public void GetBrand()
+        public List<BrandGetListWithCarsDto> GetBrand()
         {
-            _brandDal.GetListWithCars();
+            return _brandDal.GetListWithCars();
         }
     }
 }
