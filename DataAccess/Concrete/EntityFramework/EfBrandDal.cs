@@ -17,6 +17,11 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (ReCapContext context = new ReCapContext())
             {
+                var denemeeQuery = context.Brands
+                    .Include(b => b.Cars)
+                    .ThenInclude(c => c.Color).ToList();
+
+                //bulk insert
 
                 var listOfBrandsWithCars = context.Brands
                     .Include(b => b.Cars)
