@@ -5,7 +5,7 @@ namespace Entities.Concrete
 {
     public class Rental : IEntity
     {
-        public int Id { get; set; }
+        public int RentalId { get; set; }
         public int CarId { get; set; }
         public Car Car { get; set; } //INFO: Navigation propertyler sorguya dahil olur!
         public int CustomerId { get; set; }
