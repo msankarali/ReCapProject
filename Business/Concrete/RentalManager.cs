@@ -19,7 +19,7 @@ namespace Business.Concrete
         public IResult Rent(int carId, int customerId)
         {
             //var result = _rentalDal.GetAll(r => r.CarId == carId && r.ReturnDate == null);
-            var result2 = _rentalDal.Get(r => r.CarId == carId && r.ReturnDate == null);
+            var result = _rentalDal.Get(r => r.CarId == carId && r.ReturnDate == null);
             //var result2 = _rentalDal.GetAll(r => r.CarId == carId && r.ReturnDate == null).Last();
 
             //if (result.Count > 0)
@@ -27,10 +27,7 @@ namespace Business.Concrete
             //    return new ErrorResult("Bu araç şuan kullanımda olduğu için kiralanamaz!");
             //}
 
-            if (result2.ReturnDate == null)
-            {
-                return new ErrorResult("Bu araç şuan kullanımda olduğu için kiralanamaz!");
-            }
+            if (result != null) return new ErrorResult("Bu araç şuan kullanımda olduğu için kiralanamaz!");
 
             _rentalDal.Add(new Rental
             {

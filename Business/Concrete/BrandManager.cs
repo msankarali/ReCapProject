@@ -12,10 +12,7 @@ namespace Business.Concrete
     {
         private IBrandDal _brandDal;
 
-        public BrandManager(IBrandDal brandDal)
-        {
-            _brandDal = brandDal;
-        }
+        public BrandManager(IBrandDal brandDal) => _brandDal = brandDal;
 
         public IResult Add(Brand brand)
         {
@@ -67,9 +64,8 @@ namespace Business.Concrete
             return new SuccessResult($"{deletedCarEntity} markası silindi!");
         }
 
-        public List<BrandGetListWithCarsDto> GetBrand()
-        {
-            return _brandDal.GetListWithCars();
-        }
+        public IDataResult<List<BrandGetListWithCarsDto>> GetBrand() =>
+            new SuccessDataResult<List<BrandGetListWithCarsDto>>(_brandDal.GetListWithCars());
+
     }
 }

@@ -265,7 +265,9 @@ namespace ConsoleUI
                         Console.WriteLine("Lütfen müşteri Id'sini giriniz: ");
                         rentalEntityToAdd.CustomerId = int.Parse(Console.ReadLine());
 
-                        rentalService.
+                        var rentalResponse = rentalService.Rent(rentalEntityToAdd.CarId, rentalEntityToAdd.CustomerId);
+
+                        Console.WriteLine(rentalResponse.Message);
 
                         break;
 

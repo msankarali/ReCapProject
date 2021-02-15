@@ -21,6 +21,6 @@ namespace Business.Abstract
 
         IDataResult<Brand> GetByBrandName(string brandName);
 
-        List<BrandGetListWithCarsDto> GetBrand();
+        IDataResult<List<BrandGetListWithCarsDto>> GetBrand();
     }
 }
