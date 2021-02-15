@@ -13,6 +13,12 @@ namespace WebAPI.Controllers
     public class UsersController : ControllerBase
     {
         private IUserService _userService;
+
+        public UsersController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         public IActionResult GetAllUsers()
         {
             var result = _userService.GetAllUsers();
