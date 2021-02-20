@@ -26,7 +26,7 @@ namespace ConsoleUI
 
             var brandsWithCars = brandService.GetBrand();
 
-            foreach (var brand in brandsWithCars)
+            foreach (var brand in brandsWithCars.Data)
             {
                 Console.Write(brand.BrandName + " => ");
                 foreach (var car in brand.CarList)
