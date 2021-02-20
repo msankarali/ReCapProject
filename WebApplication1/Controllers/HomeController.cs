@@ -11,6 +11,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -22,18 +23,7 @@ namespace WebApplication1.Controllers
             _httpRequestHelper = httpRequestHelper;
         }
 
-        public async Task<IActionResult> Index() => View(await _httpRequestHelper.SendRequest<List<Brand>>("brands/getbrands"));
-
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        public async Task<IActionResult> Index() =>
+            View(await _httpRequestHelper.SendRequest<List<Brand>>("brands/getbrands"));
     }
 }
