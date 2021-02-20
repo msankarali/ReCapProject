@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace Business.Concrete
 {
-    public class CustomerManageer : ICustomerService
+    public class CustomerManager : ICustomerService
     {
         private readonly ICustomerDal _customerDal;
 
-        public CustomerManageer(ICustomerDal customerDal)
+        public CustomerManager(ICustomerDal customerDal)
         {
             _customerDal = customerDal;
         }

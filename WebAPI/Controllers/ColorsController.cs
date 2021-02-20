@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
             _colorService = colorService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllColors")]
         public IActionResult GetAllColors()
         {
             var result = _colorService.GetAllColors();
@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public IActionResult Add(Color color)
         {
             var result = _colorService.Add(color);
@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost]
+        [HttpPost("Delete")]
         public IActionResult Delete(Color color)
         {
             var result = _colorService.Delete(color);
@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost]
+        [HttpPost("Update")]
         public IActionResult Update(Color color)
         {
             var result = _colorService.Update(color);
@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetById")]
         public IActionResult GetById(int colorId)
         {
             var result = _colorService.GetById(colorId);
@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost]
+        [HttpPost("DeleteById")]
         public IActionResult DeleteById(int colorId)
         {
             var result = _colorService.DeleteById(colorId);

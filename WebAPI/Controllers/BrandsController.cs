@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
             _brandService = brandService;
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public IActionResult Add(Brand brand)
         {
             var result = _brandService.Add(brand);
@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost]
+        [HttpPost("Update")]
         public IActionResult Update(Brand brand)
         {
             var result = _brandService.Update(brand);
@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost]
+        [HttpPost("Delete")]
         public IActionResult Delete(Brand brand)
         {
             var result = _brandService.Delete(brand);
@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetById")]
         public IActionResult GetById(int id)
         {
             var result = _brandService.GetById(id);
@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost]
+        [HttpPost("DeleteById")]
         public IActionResult DeleteById(int id)
         {
             var result = _brandService.DeleteById(id);
@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
             var result = _brandService.GetAll();
@@ -68,7 +68,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetByBrandName")]
         public IActionResult GetByBrandName(string brandName)
         {
             var result = _brandService.GetByBrandName(brandName);
@@ -76,8 +76,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet]
-        public IActionResult GetBrand()
+        [HttpGet("getbrands")]
+        public IActionResult GetBrands()
         {
             var result = _brandService.GetBrand();
             if (result.Success) return Ok(result);

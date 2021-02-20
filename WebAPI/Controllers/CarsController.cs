@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
             _carService = carService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
             var result = _carService.GetAll();
@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public IActionResult Add(Car car)
         {
             var result = _carService.Add(car);
@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetAllCarsByBrandId")]
         public IActionResult GetAllCarsByBrandId(int brandId)
         {
             var result = _carService.GetAllCarsByBrandId(brandId);
@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetAllCarsByColorId")]
         public IActionResult GetAllCarsByColorId(int colorId)
         {
             var result = _carService.GetAllCarsByColorId(colorId);
@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetCarById")]
         public IActionResult GetCarById(int carId)
         {
             var result = _carService.GetCarById(carId);
@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetAllCarsWithDetails")]
         public IActionResult GetAllCarsWithDetails()
         {
             var result = _carService.GetAllCarsWithDetails();
@@ -68,7 +68,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetAllCarsBetweenMinAndMax")]
         public IActionResult GetAllCarsBetweenMinAndMax(int min, int max)
         {
             var result = _carService.GetAllCarsBetweenMinAndMax(min, max);
@@ -76,7 +76,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetAllCarsIfExist")]
         public IActionResult GetAllCarsIfExist()
         {
             var result = _carService.GetAllCarsIfExist();
@@ -84,7 +84,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetAllCarsIfExist")]
         public IActionResult GetAllCarsIfExist(bool control)
         {
             var result = _carService.GetAllCarsIfExist(control);
@@ -92,7 +92,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("DeleteById")]
         public IActionResult DeleteById(int carId)
         {
             var result = _carService.DeleteById(carId);
@@ -100,7 +100,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetCarWithDetailById")]
         public IActionResult GetCarWithDetailById(int carId)
         {
             var result = _carService.GetCarWithDetailById(carId);
@@ -108,7 +108,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("Update")]
         public IActionResult Update(Car car)
         {
             var result = _carService.Update(car);
@@ -116,7 +116,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetAllCarsIfNotRented")]
         public IActionResult GetAllCarsIfNotRented()
         {
             var result = _carService.GetAllCarsIfNotRented();

@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
             _customerService = customerService;
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public IActionResult Add(Customer customer)
         {
             var result = _customerService.Add(customer);
@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetAllCustomers")]
         public IActionResult GetAllCustomers()
         {
             var result = _customerService.GetAllCustomers();

@@ -20,7 +20,7 @@ namespace ConsoleUI
             IColorService colorService = new ColorManager(new EfColorDal());
             ICarService carService = new CarManager(new EfCarDal());
             IRentalService rentalService = new RentalManager(new EfRentalDal());
-            ICustomerService customerService = new CustomerManageer(new EfCustomerDal());
+            ICustomerService customerService = new CustomerManager(new EfCustomerDal());
             IUserService userService = new UserManager(new EfUserDal());
             IConsoleService consoleService = new ConsoleManager();
 

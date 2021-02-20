@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
             _rentalService = rentalService;
         }
 
-        [HttpPost]
+        [HttpPost("Rent")]
         public IActionResult Rent(int carId, int customerId)
         {
             var result = _rentalService.Rent(carId, customerId);
@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost]
+        [HttpPost("ReturnCar")]
         public IActionResult ReturnCar(int carId, int customerId)
         {
             var result = _rentalService.ReturnCar(carId, customerId);
