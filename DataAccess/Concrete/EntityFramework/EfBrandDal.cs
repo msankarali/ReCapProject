@@ -24,6 +24,7 @@ namespace DataAccess.Concrete.EntityFramework
                     .Include(b => b.Cars)
                     .Select(b => new BrandGetListWithCarsDto
                     {
+                        BrandId = b.BrandId,
                         BrandName = b.BrandName,
                         CarList = b.Cars
                     }).ToList();

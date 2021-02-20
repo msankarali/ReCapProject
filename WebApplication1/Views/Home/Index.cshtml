@@ -1,0 +1,45 @@
+﻿@model ViewDataResult<List<Brand>>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    @if (Model.Success)
+    {
+        <div class="col-12">
+            @if (Model.Data.Count > 0)
+            {
+                @foreach (var brand in Model.Data)
+                {
+                    <div class="alert alert-@if (brand.BrandId % 2 == 0)
+                    {
+                        <text>success</text>
+                    }
+                    else
+                    {
+                        <text>info</text>
+
+                    }
+                    ">
+                        @brand.BrandId @brand.BrandName!!
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    D A T A     B U L U N A M A D I !
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="col-12">
+            <div class="alert alert-warning">
+                D A T A     B U L U N A M A D I !
+            </div>
+        </div>
+    }
+</div>

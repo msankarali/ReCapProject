@@ -5,6 +5,7 @@ namespace Entities.DTOs
 {
     public class BrandGetListWithCarsDto
     {
+        public int BrandId { get; set; }
         public string BrandName { get; set; }
         public List<Car> CarList { get; set; } = new List<Car>();
     }
