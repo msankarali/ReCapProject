@@ -12,16 +12,13 @@ namespace ConsoleUI
     {
         private static void Main(string[] args)
         {
-            //AddNewFile
-
-
-
             IBrandService brandService = new BrandManager(new EfBrandDal());
             IColorService colorService = new ColorManager(new EfColorDal());
             ICarService carService = new CarManager(new EfCarDal());
             IRentalService rentalService = new RentalManager(new EfRentalDal());
             ICustomerService customerService = new CustomerManager(new EfCustomerDal());
             IUserService userService = new UserManager(new EfUserDal());
+
             IConsoleService consoleService = new ConsoleManager();
 
             var brandsWithCars = brandService.GetBrand();
@@ -35,8 +32,6 @@ namespace ConsoleUI
                 }
                 Console.WriteLine();
             }
-
-            //brandService.GetBrand();
 
             var menus = new string[]
             {
@@ -228,7 +223,6 @@ namespace ConsoleUI
                         break;
 
                     case "16":
-                        //"Araba Kirala"
                         Console.Clear();
                         var userListResult = userService.GetAllUsers();
                         if (userListResult.Success)
