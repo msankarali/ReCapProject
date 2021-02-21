@@ -25,8 +25,7 @@ namespace DataAccess.Concrete.EntityFramework
                     .Select(b => new BrandGetListWithCarsDto
                     {
                         BrandId = b.BrandId,
-                        BrandName = b.BrandName,
-                        CarList = b.Cars
+                        BrandName = b.BrandName
                     }).ToList();
 
                 //TODO: DTO icerisinde entitinin kendisini kullanmak??

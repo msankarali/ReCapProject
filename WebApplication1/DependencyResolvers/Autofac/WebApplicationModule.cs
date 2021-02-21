@@ -16,26 +16,7 @@ namespace WebApplication1.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ApiService>()
-                .Keyed<IApiService>("WebApi")
-                .AsImplementedInterfaces()
-                .WithParameter("baseUrl", "https://localhost:44334/api/");
 
-            builder.RegisterType<ApiService>()
-                .Keyed<IApiService>("GenelParaWebApi")
-                .AsImplementedInterfaces()
-                .WithParameter("baseUrl", "https://api.genelpara.com/embed/");
-
-            builder.RegisterType<HttpRequestHelper>().As<IHttpRequestHelper>().SingleInstance(); 
-
-            //builder.RegisterAssemblyTypes(typeof(ApiService).Assembly, typeof(Startup).Assembly)
-            //    .InstancePerDependency()
-            //    .AsImplementedInterfaces();
-
-            //builder.RegisterAssemblyTypes(typeof(IApiService).Assembly)
-            //    .AsImplementedInterfaces();
-
-            ////foreach (Type tp in AppDomain.CurrentDomain.GetAssemblies().Where(t => t.IsSubclassOf(typeof(Module))))
 
             //var moduleType = typeof(BaseModule);
             //foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies().Where(x => !x.IsDynamic))

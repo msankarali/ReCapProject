@@ -77,14 +77,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("GetAllCarsIfExist")]
-        public IActionResult GetAllCarsIfExist()
-        {
-            var result = _carService.GetAllCarsIfExist();
-            if (result.Success) return Ok(result);
-            return Ok(result);
-        }
-
-        [HttpGet("GetAllCarsIfExist")]
         public IActionResult GetAllCarsIfExist(bool control)
         {
             var result = _carService.GetAllCarsIfExist(control);

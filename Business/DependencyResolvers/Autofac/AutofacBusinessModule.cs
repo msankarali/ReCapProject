@@ -4,6 +4,8 @@ using Business.Abstract;
 using Business.Concrete;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
+using Core.Utilities.RestSharp;
+using Core.Utilities.RestsharpClient.ApiClient;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 
@@ -30,6 +32,16 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
+
+            builder.RegisterType<ApiService>()
+                .Keyed<IApiService>("WebApi")
+                .AsImplementedInterfaces()
+                .WithParameter("baseUrl", "https://localhost:44334/api/");
+
+            builder.RegisterType<ApiService>()
+                .Keyed<IApiService>("GenelParaWebApi")
+                .AsImplementedInterfaces()
+                .WithParameter("baseUrl", "https://api.genelpara.com/embed/");
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
