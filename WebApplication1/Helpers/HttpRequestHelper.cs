@@ -1,11 +1,5 @@
-﻿using Core.Utilities.Results;
-using Entities.Concrete;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Newtonsoft.Json;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using WebApplication1.Models;
 
@@ -24,25 +18,19 @@ namespace WebApplication1.Helpers
 
         public async Task<ViewDataResult<T>> Get<T>(string url)
         {
-            ViewDataResult<T> result = null;
-
             var Res = await _httpClient.GetAsync(_httpClient.BaseAddress + url);
-
             var response = Res.Content.ReadAsStringAsync().Result;
-            result = JsonConvert.DeserializeObject<ViewDataResult<T>>(response);
-
+            var result = JsonConvert.DeserializeObject<ViewDataResult<T>>(response);
             return result;
         }
 
         public async Task<ViewDataResult<T>> Send<T>(string url, T data)
         {
-            ViewDataResult<T> result = null;
             var requestObj = JsonConvert.SerializeObject(data);
 
             var Res = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + url, requestObj);
-
             var response = Res.Content.ReadAsStringAsync().Result;
-            result = JsonConvert.DeserializeObject<ViewDataResult<T>>(response);
+            var result = JsonConvert.DeserializeObject<ViewDataResult<T>>(response);
 
             return result;
         }

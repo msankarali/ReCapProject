@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
+using Autofac.Features.AttributeFilters;
 using Business.Abstract;
 using Business.Concrete;
+using Business.Constants;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
 using Core.Utilities.RestSharp;
@@ -33,15 +35,19 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 
-            builder.RegisterType<ApiService>()
-                .Keyed<IApiService>("WebApi")
-                .AsImplementedInterfaces()
-                .WithParameter("baseUrl", "https://localhost:44334/api/");
 
-            builder.RegisterType<ApiService>()
-                .Keyed<IApiService>("GenelParaWebApi")
-                .AsImplementedInterfaces()
-                .WithParameter("baseUrl", "https://api.genelpara.com/embed/");
+            //builder.RegisterType<ApiService>().As<IApiService>()
+            //    .WithParameter("baseUrl", "https://localhost:44334/api/")
+            //    .Named<IApiService>("WebApi")
+            //    //.AsImplementedInterfaces()
+            //    .WithAttributeFiltering();
+
+            //builder.RegisterType<ApiService>().As<IApiService>()
+            //    .WithParameter("baseUrl", "https://api.genelpara.com/embed/")
+            //    .Named<IApiService>("GenelParaWebApi")
+            //    //.AsImplementedInterfaces()
+            //    .WithAttributeFiltering();
+
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

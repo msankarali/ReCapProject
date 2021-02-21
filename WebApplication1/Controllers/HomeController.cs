@@ -1,4 +1,5 @@
 ﻿using Autofac.Features.AttributeFilters;
+using Business.Constants;
 using Core.Utilities.RestSharp;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Helpers;
 using WebApplication1.Models;
+using WebApplication1.Services;
 
 namespace WebApplication1.Controllers
 {
@@ -23,13 +25,12 @@ namespace WebApplication1.Controllers
         public HomeController(
             ILogger<HomeController> logger,
             IHttpRequestHelper httpRequestHelper,
-            [KeyFilter("WebApi")] IApiService apiService,
-            [KeyFilter("GenelParaWebApi")] IApiService genelParaWebService)
+            IApiManager apiManager)
         {
             _logger = logger;
             _httpRequestHelper = httpRequestHelper;
-            _apiService = apiService;
-            _genelParaWebService = genelParaWebService;
+            _apiService = apiManager.ApiService;
+            _genelParaWebService = apiManager.GenelParaWebService;
         }
 
 

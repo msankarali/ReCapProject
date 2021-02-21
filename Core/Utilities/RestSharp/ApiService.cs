@@ -1,6 +1,4 @@
-﻿using Core.Entities;
-using Core.Utilities.RestSharp;
-using Microsoft.Extensions.Options;
+﻿using Core.Utilities.RestSharp;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.Generic;
@@ -11,10 +9,8 @@ namespace Core.Utilities.RestsharpClient.ApiClient
     {
         protected readonly string _apiBaseUrl;
         //public ApiService(IOptions<RestSharpSettings> appSettings) => _apiBaseUrl = appSettings.Value.ApiBaseUrl;
-        public ApiService(string baseUrl)
-        {
-            _apiBaseUrl = baseUrl;
-        }
+        public ApiService(string baseUrl) => _apiBaseUrl = baseUrl;
+
         public T Get<T>(string url, Dictionary<string, string> headers = null) => GetResult<T>(url, Method.GET, null, headers);
         public T Post<T>(string url, object requestObject, Dictionary<string, string> headers = null) => GetResult<T>(url, Method.POST, requestObject, headers);
         public T Put<T>(string url, object requestObject, Dictionary<string, string> headers = null) => GetResult<T>(url, Method.PUT, requestObject, headers);

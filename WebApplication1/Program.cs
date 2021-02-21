@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Business.DependencyResolvers.Autofac;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -24,7 +25,7 @@ namespace WebApplication1
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureContainer<ContainerBuilder>(builder =>
                 {
-                    builder.RegisterModule(new WebApplicationModule());
+                    builder.RegisterModule(new AutofacWebUIModule());
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
