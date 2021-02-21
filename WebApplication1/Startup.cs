@@ -1,3 +1,6 @@
+using Core.Entities;
+using Core.Utilities.RestSharp;
+using Core.Utilities.RestsharpClient.ApiClient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +27,17 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddOptions<RestSharpSettings>().Bind(Configuration.GetSection(nameof(RestSharpSettings)));
+            services.AddSingleton<IApiService, ApiService>();
+
+            services.AddHttpClient("client", c =>
+            {
+                c.BaseAddress = new Uri("https://localhost:44334/api/");
+                c.DefaultRequestHeaders.Add("Accept", "application/json");
+                c.Timeout = new TimeSpan(1, 0, 0);
+            });
+
             services.AddSingleton<IHttpRequestHelper, HttpRequestHelper>();
         }
 
