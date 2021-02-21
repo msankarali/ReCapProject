@@ -13,25 +13,38 @@ namespace WebApplication1.Helpers
 {
     public class HttpRequestHelper : IHttpRequestHelper
     {
-        private readonly string Baseurl = "https://localhost:44334/api/";
-        public async Task<ViewDataResult<T>> SendRequest<T>(string url)
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient _httpClient;
+
+        public HttpRequestHelper(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+            _httpClient = _httpClientFactory.CreateClient("client");
+        }
+
+        public async Task<ViewDataResult<T>> Get<T>(string url)
         {
             ViewDataResult<T> result = null;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(Baseurl);
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage Res = await client.GetAsync(Baseurl + url);
+            var Res = await _httpClient.GetAsync(_httpClient.BaseAddress + url);
 
-                if (Res.IsSuccessStatusCode)
-                {
-                    var response = Res.Content.ReadAsStringAsync().Result;
-                    result = JsonConvert.DeserializeObject<ViewDataResult<T>>(response);
-                }
-                return await Task.Run(() => { return result; });
-            }
+            var response = Res.Content.ReadAsStringAsync().Result;
+            result = JsonConvert.DeserializeObject<ViewDataResult<T>>(response);
+
+            return result;
+        }
+
+        public async Task<ViewDataResult<T>> Send<T>(string url, T data)
+        {
+            ViewDataResult<T> result = null;
+            var requestObj = JsonConvert.SerializeObject(data);
+
+            var Res = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + url, requestObj);
+
+            var response = Res.Content.ReadAsStringAsync().Result;
+            result = JsonConvert.DeserializeObject<ViewDataResult<T>>(response);
+
+            return result;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace WebApplication1.Helpers
 {
     public interface IHttpRequestHelper
     {
-        Task<ViewDataResult<T>> SendRequest<T>(string url);
+        Task<ViewDataResult<T>> Get<T>(string url);
+        Task<ViewDataResult<T>> Send<T>(string url, T data);
     }
 }
