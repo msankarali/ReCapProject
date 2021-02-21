@@ -28,8 +28,6 @@ namespace WebApplication1
         {
             services.AddControllersWithViews();
 
-            services.AddOptions<RestSharpSettings>().Bind(Configuration.GetSection(nameof(RestSharpSettings)));
-            services.AddSingleton<IApiService, ApiService>();
 
             services.AddHttpClient("client", c =>
             {
