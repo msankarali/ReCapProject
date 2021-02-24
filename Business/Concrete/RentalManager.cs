@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -11,9 +12,17 @@ namespace Business.Concrete
     {
         private readonly IRentalDal _rentalDal;
 
-        public RentalManager(IRentalDal rentalDal)
+        private readonly IUserService _userService;
+        private readonly ICustomerService _customerService;
+
+        public RentalManager(
+            IRentalDal rentalDal,
+            IUserService userService,
+            ICustomerService customerService)
         {
             _rentalDal = rentalDal;
+            _userService = userService;
+            _customerService = customerService;
         }
 
         /// <summary>
@@ -21,7 +30,7 @@ namespace Business.Concrete
         /// </summary>
         /// <param name="carId"></param>
         /// <returns></returns>
-        public IResult CheckIfRentedMoreThanHundred(int carId)
+        public IResult CheckIfRentedCarReachedMaxRentLimit(int carId)
         {
             if (_rentalDal.GetAll(r => r.CarId == carId).Count > 100)
             {
@@ -29,6 +38,16 @@ namespace Business.Concrete
             }
             return new ErrorResult();
         }
+
+        public IResult CheckIfRentedCarReachedMaxRentLimit200(int carId)
+        {
+            if (_rentalDal.GetAll(r => r.CarId == carId).Count > 200)
+            {
+                return new SuccessResult();
+            }
+            return new ErrorResult();
+        }
+
 
         public IResult Rent(int carId, int customerId)
         {
@@ -40,6 +59,16 @@ namespace Business.Concrete
             //{
             //    return new ErrorResult("Bu araç şuan kullanımda olduğu için kiralanamaz!");
             //}
+
+            var rslt = BusinessRules.Run(
+                CheckIfUserOlderThanTwenty(_customerService.GetUserIdByCustomerId(customerId).Data)
+
+                );
+
+            if (rslt != null)
+            {
+                return rslt;
+            }
 
             if (result != null) return new ErrorResult("Bu araç şuan kullanımda olduğu için kiralanamaz!");
 
@@ -62,6 +91,17 @@ namespace Business.Concrete
             result.ReturnDate = DateTime.Now;
             _rentalDal.Update(result);
             return new SuccessResult(Messages.CarGotBack);
+        }
+
+        private IResult CheckIfUserOlderThanTwenty(int userId)
+        {
+            //Birth Day: 1993 < 2000
+            var result = _userService.GetUser(userId).Data.Age < DateTime.Now.AddYears(-20);
+            if (result)
+            {
+                return new SuccessResult();
+            }
+            return new ErrorResult("YAŞ ENGELİ!");
         }
     }
 }

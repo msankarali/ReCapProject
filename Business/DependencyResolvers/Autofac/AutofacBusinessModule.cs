@@ -36,6 +36,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 
 
+
             //builder.RegisterType<ApiService>().As<IApiService>()
             //    .WithParameter("baseUrl", "https://localhost:44334/api/")
             //    .Named<IApiService>("WebApi")

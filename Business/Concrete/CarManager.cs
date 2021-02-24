@@ -25,11 +25,6 @@ namespace Business.Concrete
 
         public IResult Add(Car car)
         {
-            BusinessRules.Run(
-                CheckIfCarRentedMoreThanHundred(car.CarId)
-
-                );
-
             if (car.CarName.Length > 2 && car.DailyPrice > 0)
             {
                 _carDal.Add(car);
@@ -44,6 +39,10 @@ namespace Business.Concrete
 
         public IResult DeleteById(int carId)
         {
+            var result = BusinessRules.Run(
+                CheckIfCarRentedMoreThanHundred(carId)
+
+                );
             _carDal.Delete(_carDal.Get(c => c.CarId == carId));
             return new SuccessResult();
         }
@@ -102,14 +101,18 @@ namespace Business.Concrete
         public IResult Update(Car car)
         {
             var result = BusinessRules.Run(
+                CheckIfCarRentedMoreThanHundred(car.CarId),
+                CheckIfCarRentedMoreThanHundred(car.CarId),
+                CheckIfCarRentedMoreThanHundred(car.CarId),
                 CheckIfCarRentedMoreThanHundred(car.CarId)
 
                 );
 
-            if (result.Success)
-            {
 
-            }
+
+            //eğer araç 100 kere 
+            //bir yıl içerisinde 25 kere kullanılmışsa, servis kontrolü yapılması gerektiğini bildir
+
 
             _carDal.Update(car);
             return new SuccessResult();
@@ -119,7 +122,7 @@ namespace Business.Concrete
 
         private IResult CheckIfCarRentedMoreThanHundred(int carId)
         {
-            if (_rentalService.CheckIfRentedMoreThanHundred(carId).Success)
+            if (_rentalService.CheckIfRentedCarReachedMaxRentLimit(carId).Success)
             {
                 return new ErrorResult();
             }

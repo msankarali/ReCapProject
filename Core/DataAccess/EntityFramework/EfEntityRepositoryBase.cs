@@ -42,8 +42,8 @@ namespace Core.DataAccess.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                var dsa = (IQueryable<IKurumEntity>)context.Set<IKurumEntity>();
-                dsa.GetKurumId();
+                //var dsa = (IQueryable<IKurumEntity>)context.Set<IKurumEntity>();
+                //dsa.GetKurumId();
                 return predicate == null
                     ? context.Set<TEntity>().ToList()
                     : context.Set<TEntity>().Where(predicate).ToList();

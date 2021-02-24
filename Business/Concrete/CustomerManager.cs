@@ -25,7 +25,13 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
         }
+
+        public IDataResult<int> GetUserIdByCustomerId(int customerId)
+        {
+            return new SuccessDataResult<int>(_customerDal.Get(c => c.CustomerId == customerId).UserId);
+        }
     }
 }
 
 //TODO: Clean Code, Manager'da ki metodların içini doldurmayın, attribute oluşturun
+

@@ -7,6 +7,8 @@ namespace Business.Abstract
         IResult Rent(int carId, int customerId);
         IResult ReturnCar(int carId, int customerId);
 
-        IResult CheckIfRentedMoreThanHundred(int carId);
+        //eğer araç 100 kere kiralanmamışsa, aracı silme işlemini iptal et
+        IResult CheckIfRentedCarReachedMaxRentLimit(int carId);
+
     }
 }
