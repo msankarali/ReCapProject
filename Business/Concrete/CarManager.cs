@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -12,14 +13,23 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         private ICarDal _carDal;
+        private IRentalService _rentalService;
 
-        public CarManager(ICarDal carDal)
+        public CarManager(
+            ICarDal carDal,
+            IRentalService rentalService)
         {
             _carDal = carDal;
+            _rentalService = rentalService;
         }
 
         public IResult Add(Car car)
         {
+            BusinessRules.Run(
+                CheckIfCarRentedMoreThanHundred(car.CarId)
+
+                );
+
             if (car.CarName.Length > 2 && car.DailyPrice > 0)
             {
                 _carDal.Add(car);
@@ -91,8 +101,31 @@ namespace Business.Concrete
 
         public IResult Update(Car car)
         {
+            var result = BusinessRules.Run(
+                CheckIfCarRentedMoreThanHundred(car.CarId)
+
+                );
+
+            if (result.Success)
+            {
+
+            }
+
             _carDal.Update(car);
             return new SuccessResult();
         }
+
+        #region Business Rules
+
+        private IResult CheckIfCarRentedMoreThanHundred(int carId)
+        {
+            if (_rentalService.CheckIfRentedMoreThanHundred(carId).Success)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
+        }
+
+        #endregion
     }
 }

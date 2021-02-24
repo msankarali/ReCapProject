@@ -16,6 +16,20 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
+        /// <summary>
+        /// returns true if rented more than 100
+        /// </summary>
+        /// <param name="carId"></param>
+        /// <returns></returns>
+        public IResult CheckIfRentedMoreThanHundred(int carId)
+        {
+            if (_rentalDal.GetAll(r => r.CarId == carId).Count > 100)
+            {
+                return new SuccessResult();
+            }
+            return new ErrorResult();
+        }
+
         public IResult Rent(int carId, int customerId)
         {
             //var result = _rentalDal.GetAll(r => r.CarId == carId && r.ReturnDate == null);

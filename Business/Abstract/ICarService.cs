@@ -32,5 +32,6 @@ namespace Business.Abstract
         IResult Update(Car car);
 
         IDataResult<List<Car>> GetAllCarsIfNotRented();
+
     }
 }

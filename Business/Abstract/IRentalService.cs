@@ -6,5 +6,7 @@ namespace Business.Abstract
     {
         IResult Rent(int carId, int customerId);
         IResult ReturnCar(int carId, int customerId);
+
+        IResult CheckIfRentedMoreThanHundred(int carId);
     }
 }
