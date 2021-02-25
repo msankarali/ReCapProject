@@ -30,6 +30,11 @@ namespace DataAccess.Concrete.InMemory
             _carList.Add(car);
         }
 
+        public void AddRange(List<Car> entities)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(Car car)
         {
             Car carToDelete = GetById(car.CarId);

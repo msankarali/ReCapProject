@@ -13,6 +13,7 @@ namespace Core.DataAccess
         T Get(Expression<Func<T, bool>> predicate);
 
         void Add(T entity);
+        void AddRange(List<T> entities);
 
         void Update(T entity);
 

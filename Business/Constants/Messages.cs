@@ -19,6 +19,15 @@
         public const string CarShouldHaveMin2Character = "Araba ismi minimum 2 karakter olmalı";
         public const string CarShouldHaveMin0DailyPrice = "Günlük ücreti sıfırdan büyük olmalı";
 
-        #endregion Car Delete error messages
+        #endregion Car Delete messages
+
+        #region Car Image messages
+
+        public static string CarImagesAdded = "Aracınız için resimler eklendi!";
+        public static string CarImagesNotAdded = "Aracınız için 5 resimden fazla yükleme yapamazsınız!";
+        public static string CarImageDeleted = "Araba resmi başarıyla silindi!";
+        public static string CarImageUpdated = "Araba resmi güncellendi!";
+
+        #endregion
     }
 }
