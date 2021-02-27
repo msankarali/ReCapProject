@@ -28,6 +28,8 @@
         public static string CarImageDeleted = "Araba resmi başarıyla silindi!";
         public static string CarImageUpdated = "Araba resmi güncellendi!";
 
+        public static string FileExtensionMustBeAnImage = "Resim jpg, jpeg veya png uzantısında olmalı!";
+
         #endregion
     }
 }

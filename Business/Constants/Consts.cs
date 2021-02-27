@@ -12,5 +12,7 @@ namespace Business.Constants
 
         public const string Key1 = "Key1";
         public const string Key2 = "Key2";
+
+        public const string ImageUploadUrl = @"upload\images";
     }
 }

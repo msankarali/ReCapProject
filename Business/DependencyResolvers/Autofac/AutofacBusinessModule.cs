@@ -5,6 +5,7 @@ using Business.Abstract;
 using Business.Concrete;
 using Business.Constants;
 using Castle.DynamicProxy;
+using Core.Utilities.FileHelper;
 using Core.Utilities.Interceptors;
 using Core.Utilities.RestSharp;
 using Core.Utilities.RestsharpClient.ApiClient;
@@ -35,8 +36,10 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 
-            builder.RegisterType<CarImagesManager>().As<ICarImagesService>().SingleInstance();
+            builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
             builder.RegisterType<EfCarImagesDal>().As<ICarImagesDal>().SingleInstance();
+
+            builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
 
 
 
