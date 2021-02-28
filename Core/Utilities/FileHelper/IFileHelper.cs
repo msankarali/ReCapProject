@@ -10,5 +10,6 @@ namespace Core.Utilities.FileHelper
     public interface IFileHelper
     {
         string[] WriteFile(string uploadUrl = "upload", params IFormFile[] file);
+        public string[] DeleteFile(params string[] url);
     }
 }

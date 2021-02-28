@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>8e79bf78-a592-418b-857b-0de8c03e0c18</UserSecretsId>
+    <StartupObject>WebAPI.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
