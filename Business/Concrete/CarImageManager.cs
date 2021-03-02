@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationTools.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -31,6 +32,7 @@ namespace Business.Concrete
             _fileHelper = fileHelper;
         }
 
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(AddCarImagesDtoValidator))]
         public IResult AddCarImages(AddCarImagesDto addCarImagesDto)
         {

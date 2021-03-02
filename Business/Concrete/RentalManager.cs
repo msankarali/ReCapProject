@@ -61,7 +61,7 @@ namespace Business.Concrete
             //}
 
             var rslt = BusinessRules.Run(
-                CheckIfUserOlderThanTwenty(_customerService.GetUserIdByCustomerId(customerId).Data)
+                //CheckIfUserOlderThanTwenty(_customerService.GetUserIdByCustomerId(customerId).Data)
 
                 );
 
@@ -93,15 +93,15 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarGotBack);
         }
 
-        private IResult CheckIfUserOlderThanTwenty(int userId)
-        {
-            //Birth Day: 1993 < 2000
-            var result = _userService.GetUser(userId).Data.Age < DateTime.Now.AddYears(-20);
-            if (result)
-            {
-                return new SuccessResult();
-            }
-            return new ErrorResult("YAŞ ENGELİ!");
-        }
+        //private IResult CheckIfUserOlderThanTwenty(int userId)
+        //{
+        //    //Birth Day: 1993 < 2000
+        //    var result = _userService.GetUser(userId).Data.Age < DateTime.Now.AddYears(-20);
+        //    if (result)
+        //    {
+        //        return new SuccessResult();
+        //    }
+        //    return new ErrorResult("YAŞ ENGELİ!");
+        //}
     }
 }

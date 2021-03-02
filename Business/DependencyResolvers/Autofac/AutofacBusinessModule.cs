@@ -9,6 +9,7 @@ using Core.Utilities.FileHelper;
 using Core.Utilities.Interceptors;
 using Core.Utilities.RestSharp;
 using Core.Utilities.RestsharpClient.ApiClient;
+using Core.Utilities.Security.Jwt;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 
@@ -39,8 +40,10 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
             builder.RegisterType<EfCarImagesDal>().As<ICarImagesDal>().SingleInstance();
 
-            builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
+            builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
 
 
             //builder.RegisterType<ApiService>().As<IApiService>()
