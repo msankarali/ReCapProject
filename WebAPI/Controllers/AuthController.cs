@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace WebAPI.Controllers
 {
@@ -33,6 +34,10 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
+        //[FromHeader] int[] ids
+        //[FromQuery] int[] ids
+        //[FromBody] (default) int[] ids
+        //[FromBody] int obje olarak aliyor[]
         [HttpPost("register")]
         public ActionResult Register(UserForRegisterDto userForRegisterDto)
         {
