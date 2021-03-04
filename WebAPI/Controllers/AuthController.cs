@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace WebAPI.Controllers
@@ -34,12 +35,11 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        //[FromHeader] int[] ids
-        //[FromQuery] int[] ids
-        //[FromBody] (default) int[] ids
-        //[FromBody] int obje olarak aliyor[]
+        //[FromHeader] int[] ids (header)
+        //[FromQuery] int[] ids (params)
+        //[FromBody] (default) int[] ids, obje olarak aliyor[1,2,3]
         [HttpPost("register")]
-        public ActionResult Register(UserForRegisterDto userForRegisterDto)
+        public ActionResult Register([FromServices] UserForRegisterDto userForRegisterDto, [FromQuery] List<int> ids)
         {
             var userExists = _authService.UserExists(userForRegisterDto.Email);
             if (!userExists.Success)
