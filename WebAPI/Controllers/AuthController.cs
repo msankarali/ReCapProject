@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
         //[FromQuery] int[] ids (params)
         //[FromBody] (default) int[] ids, obje olarak aliyor[1,2,3]
         [HttpPost("register")]
-        public ActionResult Register([FromServices] UserForRegisterDto userForRegisterDto, [FromQuery] List<int> ids)
+        public ActionResult Register([FromBody] UserForRegisterDto userForRegisterDto)
         {
             var userExists = _authService.UserExists(userForRegisterDto.Email);
             if (!userExists.Success)
