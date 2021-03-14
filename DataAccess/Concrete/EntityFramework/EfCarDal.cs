@@ -1,4 +1,5 @@
 ﻿using Core.DataAccess.EntityFramework;
+using Core.Extensions;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -36,39 +37,24 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (ReCapContext context = new ReCapContext())
             {
-                var query = context.Cars
+                var result = context.Cars
                     .Include(c => c.Color)
                     .Include(c => c.Brand)
-                    .AsQueryable();
-
-                if (carFilterDto.brandId.HasValue)
-                {
-                    query = query.Where(c => c.Brand.BrandId == carFilterDto.brandId);
-                }
-                if (carFilterDto.colorId.HasValue)
-                {
-                    query = query.Where(c => c.Color.ColorId == carFilterDto.colorId);
-                }
-                if (carFilterDto.MinPrice.HasValue)
-                {
-                    query = query.Where(c => c.DailyPrice > carFilterDto.MinPrice);
-                }
-                if (carFilterDto.MaxPrice.HasValue)
-                {
-                    query = query.Where(c => c.DailyPrice < carFilterDto.MaxPrice);
-                }
-
-                var result = query.Select(c => new CarDetailsDto
-                {
-                    BrandName = c.Brand.BrandName == null ? "Marka yok" : c.Brand.BrandName,
-                    ColorName = c.Color.ColorName == null ? "Renk yok" : c.Color.ColorName,
-                    DailyPrice = c.DailyPrice,
-                    CarName = c.CarName,
-                    CarId = c.CarId,
-                    Description = c.Description,
-                    IsDeleted = c.IsActive,
-                    ModelYear = c.ModelYear
-                });
+                    .WhereIf(carFilterDto.brandId.HasValue, c => c.Brand.BrandId == carFilterDto.brandId)
+                    .WhereIf(carFilterDto.colorId.HasValue, c => c.Color.ColorId == carFilterDto.colorId)
+                    .WhereIf(carFilterDto.MinPrice.HasValue, c => c.DailyPrice > carFilterDto.MinPrice)
+                    .WhereIf(carFilterDto.MaxPrice.HasValue, c => c.DailyPrice < carFilterDto.MaxPrice)
+                    .Select(c => new CarDetailsDto
+                    {
+                        BrandName = c.Brand.BrandName == null ? "Marka yok" : c.Brand.BrandName,
+                        ColorName = c.Color.ColorName == null ? "Renk yok" : c.Color.ColorName,
+                        DailyPrice = c.DailyPrice,
+                        CarName = c.CarName,
+                        CarId = c.CarId,
+                        Description = c.Description,
+                        IsDeleted = c.IsActive,
+                        ModelYear = c.ModelYear
+                    });
 
                 return result.ToList();
             }
