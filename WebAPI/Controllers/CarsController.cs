@@ -56,9 +56,10 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("GetAllCarsWithDetails")]
+        [HttpPost("GetAllCarsWithDetails")]
         //car/getall
-        public IActionResult GetAllCarsWithDetails(CarFilterDto carFilterDto)
+        //form id="a" -> json
+        public IActionResult GetAllCarsWithDetails([FromBody] CarFilterDto carFilterDto)
         {
             var result = _carService.GetAllCarsWithDetails(carFilterDto);
             if (result.Success) return Ok(result);

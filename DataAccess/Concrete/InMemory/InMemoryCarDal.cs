@@ -66,6 +66,11 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
+        public List<CarDetailsDto> GetAllCarsWithDetails(CarFilterDto carFilterDto)
+        {
+            throw new NotImplementedException();
+        }
+
         public Car GetById(int id)
         {
             return _carList.SingleOrDefault(cl => cl.CarId == id);
