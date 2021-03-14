@@ -31,11 +31,11 @@ namespace DataAccess.Concrete.EntityFramework
                     .Select(r => new RentalDetailsDto
                     {
                         BrandName = r.Car.Brand.BrandName,
-                        FullName = r.Customer.User.FirstName + r.Customer.User.LastName,
+                        FullName = r.Customer.User.FirstName + " " + r.Customer.User.LastName,
                         RentalId = r.RentalId
-                    }).ToList();
+                    });
 
-                return result;
+                return result.ToList();
             }
         }
     }

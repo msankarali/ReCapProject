@@ -17,7 +17,7 @@ namespace Business.Abstract
 
         IDataResult<Car> GetCarById(int carId);
 
-        IDataResult<List<CarDetailsDto>> GetAllCarsWithDetails();
+        IDataResult<List<CarDetailsDto>> GetAllCarsWithDetails(CarFilterDto carFilterDto);
 
         IDataResult<List<Car>> GetAllCarsBetweenMinAndMax(int min, int max);
 

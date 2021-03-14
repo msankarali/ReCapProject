@@ -10,39 +10,67 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, ReCapContext>, ICarDal
     {
-        public List<CarDetailsDto> GetAllCarsWithDetails()
+        //public List<CarDetailsDto> GetAllCarsWithDetails()
+        //{
+        //    using (ReCapContext context = new ReCapContext())
+        //    {
+        //        return (from car in context.Cars
+        //                join color in context.Colors on car.ColorId equals color.ColorId into temp
+        //                from t in temp.DefaultIfEmpty()
+        //                join brand in context.Brands on car.BrandId equals brand.BrandId into temp2
+        //                from t2 in temp2.DefaultIfEmpty()
+        //                select new CarDetailsDto
+        //                {
+        //                    BrandName = t2.BrandName == null ? "Marka yok" : t2.BrandName,
+        //                    ColorName = t.ColorName == null ? "Renk yok" : t.ColorName,
+        //                    DailyPrice = car.DailyPrice,
+        //                    CarName = car.CarName,
+        //                    CarId = car.CarId,
+        //                    Description = car.Description,
+        //                    ModelYear = car.ModelYear
+        //                }).ToList();
+        //    }
+        //}
+
+        public List<CarDetailsDto> GetAllCarsWithDetails(CarFilterDto carFilterDto)
         {
             using (ReCapContext context = new ReCapContext())
             {
-                var result = context.Cars
+                var query = context.Cars
                     .Include(c => c.Color)
                     .Include(c => c.Brand)
-                    .Select(c => new CarDetailsDto
-                    {
-                        BrandName = c.Brand.BrandName == null ? "Marka yok" : c.Brand.BrandName,
-                        ColorName = c.Color.ColorName == null ? "Renk yok" : c.Color.ColorName,
-                        DailyPrice = c.DailyPrice,
-                        CarName = c.CarName
-                    }).ToList();
-            }
+                    .AsQueryable();
 
-            using (ReCapContext context = new ReCapContext())
-            {
-                return (from car in context.Cars
-                        join color in context.Colors on car.ColorId equals color.ColorId into temp
-                        from t in temp.DefaultIfEmpty()
-                        join brand in context.Brands on car.BrandId equals brand.BrandId into temp2
-                        from t2 in temp2.DefaultIfEmpty()
-                        select new CarDetailsDto
-                        {
-                            BrandName = t2.BrandName == null ? "Marka yok" : t2.BrandName,
-                            ColorName = t.ColorName == null ? "Renk yok" : t.ColorName,
-                            DailyPrice = car.DailyPrice,
-                            CarName = car.CarName,
-                            CarId = car.CarId,
-                            Description = car.Description,
-                            ModelYear = car.ModelYear
-                        }).ToList();
+                if (carFilterDto.brandId.HasValue)
+                {
+                    query = query.Where(c => c.Brand.BrandId == carFilterDto.brandId);
+                }
+                if (carFilterDto.colorId.HasValue)
+                {
+                    query = query.Where(c => c.Color.ColorId == carFilterDto.colorId);
+                }
+                if (carFilterDto.MinPrice.HasValue)
+                {
+                    query = query.Where(c => c.DailyPrice > carFilterDto.MinPrice);
+                }
+                if (carFilterDto.MaxPrice.HasValue)
+                {
+                    query = query.Where(c => c.DailyPrice < carFilterDto.MaxPrice);
+                }
+
+                var result = query.Select(c => new CarDetailsDto
+                {
+                    BrandName = c.Brand.BrandName == null ? "Marka yok" : c.Brand.BrandName,
+                    ColorName = c.Color.ColorName == null ? "Renk yok" : c.Color.ColorName,
+                    DailyPrice = c.DailyPrice,
+                    CarName = c.CarName,
+                    CarId = c.CarId,
+                    Description = c.Description,
+                    IsDeleted = c.IsActive,
+                    ModelYear = c.ModelYear
+                });
+
+                return result.ToList();
             }
         }
 

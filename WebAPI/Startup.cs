@@ -1,3 +1,5 @@
+using Core.DependencyResolvers;
+using Core.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
@@ -31,6 +33,8 @@ namespace WebAPI
             {
                 // var policyBuilder = new 
             });
+
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Register Swagger
@@ -85,8 +89,10 @@ namespace WebAPI
                 };
             });
 
-            services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
-            ServiceTool.Create(services);
+            services.AddDependancyResolvers(new ICoreModule[]
+              {
+                    new CoreModule(),
+              });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -103,7 +109,7 @@ namespace WebAPI
                 });
             }
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader());
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseStaticFiles();
 

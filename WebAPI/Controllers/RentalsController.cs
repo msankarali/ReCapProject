@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet]
+        [HttpGet("GetRentedCars")]
         public IActionResult GetRentedCars()
         {
             var result = _rentalService.GetAllRentedCars();

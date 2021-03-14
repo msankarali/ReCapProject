@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -56,9 +57,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("GetAllCarsWithDetails")]
-        public IActionResult GetAllCarsWithDetails()
+        //car/getall
+        public IActionResult GetAllCarsWithDetails(CarFilterDto carFilterDto)
         {
-            var result = _carService.GetAllCarsWithDetails();
+            var result = _carService.GetAllCarsWithDetails(carFilterDto);
             if (result.Success) return Ok(result);
             return Ok(result);
         }
