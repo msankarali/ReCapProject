@@ -1,15 +1,18 @@
-﻿using Core.Utilities.RestSharp;
+﻿using Core.Utilities.IoC;
+using Core.Utilities.RestSharp;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Utilities.RestsharpClient.ApiClient
 {
     public class ApiService : IApiService
     {
-        protected readonly string _apiBaseUrl;
+        protected readonly string _apiBaseUrl = "https://localhost:44334/api/";
         //public ApiService(IOptions<RestSharpSettings> appSettings) => _apiBaseUrl = appSettings.Value.ApiBaseUrl;
-        public ApiService(string baseUrl) => _apiBaseUrl = baseUrl;
+        //public ApiService(string baseUrl) => _apiBaseUrl = baseUrl;
 
         public T Get<T>(string url, Dictionary<string, string> headers = null) => GetResult<T>(url, Method.GET, null, headers);
         public T Post<T>(string url, object requestObject, Dictionary<string, string> headers = null) => GetResult<T>(url, Method.POST, requestObject, headers);
@@ -20,8 +23,10 @@ namespace Core.Utilities.RestsharpClient.ApiClient
         {
             var client = new RestClient(_apiBaseUrl);
             var request = new RestRequest(url, method) { RequestFormat = DataFormat.Json };
+            var rs = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
             if (headers != null)
-                foreach (var header in headers)
+                foreach (var header in rs.HttpContext.Request.Headers)
+                    //foreach (var header in headers)
                     request.AddHeader(header.Key, header.Value);
 
             if (requestObject != null)

@@ -36,16 +36,12 @@ namespace DataAccess.Concrete.EntityFramework
 
         public List<CarDetailsDto> GetAllCarsWithDetails(CarFilterDto carFilterDto)
         {
-            object ob = 5;
-            var dsa = ob.GetHashCode();
-
+            // IRepo, UoW (repos, contexts, transaction-rollback), filter(success, error checking), 
             using (ReCapContext context = new ReCapContext())
             {
-                var dsasda = context.Brands.Select(b => b.BrandName).ToArray().Aggregate((x, y) => "Car BMW brands: " + x + ", " + y + "!");
-
                 var result = context.Cars
-                    .Include(c => c.Color)
-                    .Include(c => c.Brand)
+                    .Include(c => c.Color) // class'lara ayirma
+                    .Include(c => c.Brand) // IQueryable
                     .WhereIf(carFilterDto.brandId.HasValue, c => c.Brand.BrandId == carFilterDto.brandId)
                     .WhereIf(carFilterDto.colorId.HasValue, c => c.Color.ColorId == carFilterDto.colorId)
                     .WhereIf(carFilterDto.MinPrice.HasValue, c => c.DailyPrice > carFilterDto.MinPrice)

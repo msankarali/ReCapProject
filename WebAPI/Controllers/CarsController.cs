@@ -56,10 +56,10 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost("GetAllCarsWithDetails")]
+        [HttpGet("GetAllCarsWithDetails")]
         //car/getall
         //form id="a" -> json
-        public IActionResult GetAllCarsWithDetails([FromBody] CarFilterDto carFilterDto)
+        public IActionResult GetAllCarsWithDetails([FromQuery] CarFilterDto carFilterDto)
         {
             var result = _carService.GetAllCarsWithDetails(carFilterDto);
             if (result.Success) return Ok(result);
@@ -93,7 +93,7 @@ namespace WebAPI.Controllers
         [HttpGet("GetCarWithDetailById")]
         public IActionResult GetCarWithDetailById(int carId)
         {
-            var result = _carService.GetCarWithDetailById(carId);
+            var result = _carService.GetCarWithDetailByCarId(carId);
             if (result.Success) return Ok(result);
             return Ok(result);
         }

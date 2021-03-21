@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
@@ -23,6 +24,7 @@ namespace Business.Concrete
             _rentalService = rentalService;
         }
 
+        [SecuredOperation("admin")]
         public IResult Add(Car car)
         {
             if (car.CarName.Length > 2 && car.DailyPrice > 0)
@@ -57,14 +59,20 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice < max && c.DailyPrice > min), "Başarılı!");
         }
 
-        public IDataResult<List<Car>> GetAllCarsByBrandId(int brandId)
+        public IDataResult<List<CarDetailsDto>> GetAllCarsByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId));
+            return new SuccessDataResult<List<CarDetailsDto>>(_carDal.GetAllCarsWithDetails(new CarFilterDto
+            {
+                brandId = brandId
+            }));
         }
 
-        public IDataResult<List<Car>> GetAllCarsByColorId(int colorId)
+        public IDataResult<List<CarDetailsDto>> GetAllCarsByColorId(int colorId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
+            return new SuccessDataResult<List<CarDetailsDto>>(_carDal.GetAllCarsWithDetails(new CarFilterDto
+            {
+                colorId = colorId
+            }));
         }
 
         public IDataResult<List<Car>> GetAllCarsIfExist()
@@ -93,11 +101,11 @@ namespace Business.Concrete
             return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == carId));
         }
 
-        public IDataResult<CarDetailsDto> GetCarWithDetailById(int carId)
+        public IDataResult<CarDetailsDto> GetCarWithDetailByCarId(int carId)
         {
             return new SuccessDataResult<CarDetailsDto>(_carDal.GetCarWithDetailById(carId));
         }
-
+        
         public IResult Update(Car car)
         {
             var result = BusinessRules.Run(

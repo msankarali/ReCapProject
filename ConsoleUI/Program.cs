@@ -8,6 +8,106 @@ using System;
 
 namespace ConsoleUI
 {
+    public interface IUnitOfWork
+    {
+        DbContext DbContext { get; }
+        void BeginTransaction();
+        void Commit();
+        void Rollback();
+    }
+
+    public class UnitOfWork : IUnitOfWork
+    {
+        private readonly ERPContext _erpContext;
+        private DbContextTransaction _transaction;
+
+        public UnitOfWork(ERPContext erpContext)
+        {
+            _erpContext = erpContext;
+        }
+
+        public DbContext DbContext
+        {
+            get => _erpContext;
+        }
+
+        public void BeginTransaction()
+        {
+            this._transaction = _erpContext.Database.BeginTransaction();
+        }
+
+        public void Commit()
+        {
+            try
+            {
+                // commit transaction if there is one active
+                _transaction?.Commit();
+            }
+            catch
+            {
+                // rollback if there was an exception
+                _transaction?.Rollback();
+            }
+            finally
+            {
+                _erpContext.Dispose();
+            }
+        }
+
+        public void Rollback()
+        {
+            try
+            {
+                _transaction?.Rollback();
+            }
+            finally
+            {
+                DbContext.Dispose();
+            }
+        }
+    }
+
+
+    public interface IRepository<T>
+    {
+        IQueryable<T> Table { get; }
+        IQueryable<T> TableNoTracking { get; }
+        IQueryable<T> IncludeMany(string includes);
+        T GetById(object id);
+        void Insert(T entity);
+        void Insert(IEnumerable<T> entities);
+        void Update(T updateEntity, T setEntity);
+        void Update(IEnumerable<T> updateEntity, IEnumerable<T> setEntity);
+        void Delete(T entity);
+        void Delete(IEnumerable<T> entities);
+        IEnumerable<T> GetSql(string sql, object parameters = null);
+        int ExecuteQuery(string sql, object parameters = null);
+    }
+
+    /*  */
+
+    public class GeneralRepository<T> : IRepository<T> where T : BaseEntity
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly DbContext _context;
+        private DbSet<T> _entities;
+
+        public GeneralRepository(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+            _context = unitOfWork.DbContext;
+            _entities = _context.Set<T>();
+        }
+
+        public virtual T GetById(object id)
+        {
+            return Entities.Find(id);
+        }
+        //..
+        //..
+    }
+
+
     internal class Program
     {
         //private static void Main(string[] args)

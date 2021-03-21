@@ -1,6 +1,8 @@
 ﻿using Core.CrossCuttingConcerns.Caching;
 using Core.CrossCuttingConcerns.Caching.Microsoft;
 using Core.Utilities.IoC;
+using Core.Utilities.RestSharp;
+using Core.Utilities.RestsharpClient.ApiClient;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -22,6 +24,7 @@ namespace Core.DependencyResolvers
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //services.AddSingleton<HttpContextAccessor>();
 
+            services.AddSingleton<IApiService, ApiService>();
             services.AddSingleton<Stopwatch>();
         }
     }

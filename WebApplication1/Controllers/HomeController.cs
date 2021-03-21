@@ -60,6 +60,8 @@ namespace WebApplication1.Controllers
                 ModelYear = 2010
             });
 
+            
+
             return View(await _httpRequestHelper.Get<List<Brand>>("brands/getbrands"));
         }
     }
