@@ -42,6 +42,7 @@ namespace DataAccess.Concrete.EntityFramework
                 var result = context.Cars
                     .Include(c => c.Color) // class'lara ayirma
                     .Include(c => c.Brand) // IQueryable
+                    .Include(c => c.CarImages)
                     .WhereIf(carFilterDto.brandId.HasValue, c => c.Brand.BrandId == carFilterDto.brandId)
                     .WhereIf(carFilterDto.colorId.HasValue, c => c.Color.ColorId == carFilterDto.colorId)
                     .WhereIf(carFilterDto.MinPrice.HasValue, c => c.DailyPrice > carFilterDto.MinPrice)
@@ -55,7 +56,8 @@ namespace DataAccess.Concrete.EntityFramework
                         CarId = c.CarId,
                         Description = c.Description,
                         IsDeleted = c.IsActive,
-                        ModelYear = c.ModelYear
+                        ModelYear = c.ModelYear,
+                        ImageUrl = c.CarImages.Any(ci => ci.CarId == c.CarId) ? c.CarImages.FirstOrDefault(ci => ci.CarId == c.CarId).ImagePath : "no-preview.png"
                     });
 
                 return result.ToList();

@@ -12,5 +12,6 @@ namespace Entities.DTOs
         public short ModelYear { get; set; }
         public string Description { get; set; }
         public bool IsDeleted { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

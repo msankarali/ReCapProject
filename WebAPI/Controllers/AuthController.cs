@@ -35,9 +35,6 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        //[FromHeader] int[] ids (header)
-        //[FromQuery] int[] ids (params)
-        //[FromBody] (default) int[] ids, obje olarak aliyor[1,2,3]
         [HttpPost("register")]
         public ActionResult Register([FromBody] UserForRegisterDto userForRegisterDto)
         {

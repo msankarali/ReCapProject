@@ -85,6 +85,21 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(result);
         }
 
+        public IDataResult<CarImage> GetCarPreviewImageByCarId(int carId)
+        {
+            var result = _carImagesDal.Get(ci => ci.CarId == carId);
+
+            if (result is null)
+            {
+                return new SuccessDataResult<CarImage>(new CarImage
+                {
+                    ImagePath = "no-preview.png"
+                });
+            }
+
+            return new SuccessDataResult<CarImage>(result);
+        }
+
         public IResult UpdateCarImage(UpdateCarImageDto updateCarImageDto)
         {
             var result = BusinessRules.Run(

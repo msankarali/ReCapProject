@@ -30,5 +30,13 @@ namespace WebAPI.Controllers
             if (result.Success) return Ok(result);
             return BadRequest(result);
         }
+
+        [HttpPost("GetCarPreviewImageByCarId")]
+        public IActionResult GetCarPreviewImageByCarId(int carId)
+        {
+            var result = _carImagesService.GetCarPreviewImageByCarId(carId);
+            if (result.Success) return Ok(result);
+            return BadRequest(result);
+        }
     }
 }

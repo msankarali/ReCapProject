@@ -16,6 +16,7 @@ namespace Entities.Concrete
         public Color Color { get; set; }
         public bool IsActive { get; set; } = true;
         public List<Rental> Rentals { get; set; }
+        public List<CarImage> CarImages { get; set; }
         //public int KurumId { get; set; }
         //public bool IsDeleted { get; set; } = false;
     }
