@@ -96,5 +96,10 @@ namespace DataAccess.Concrete.InMemory
             carToUpdate.DailyPrice = car.DailyPrice;
             carToUpdate.Description = car.Description;
         }
+
+        CarDetailsWithImagesDto ICarDal.GetCarWithDetailById(int carId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

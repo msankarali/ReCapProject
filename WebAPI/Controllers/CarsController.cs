@@ -90,10 +90,10 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("GetCarWithDetailById")]
-        public IActionResult GetCarWithDetailById(int carId)
+        [HttpGet("GetCarDetailsByCarId")]
+        public IActionResult GetCarDetailsByCarId(int carId)
         {
-            var result = _carService.GetCarWithDetailByCarId(carId);
+            var result = _carService.GetCarWithDetailsByCarId(carId);
             if (result.Success) return Ok(result);
             return Ok(result);
         }

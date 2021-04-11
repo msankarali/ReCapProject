@@ -66,25 +66,28 @@ namespace DataAccess.Concrete.EntityFramework
 
 
 
-        public CarDetailsDto GetCarWithDetailById(int carId)
+        public CarDetailsWithImagesDto GetCarWithDetailById(int carId)
         {
             using (ReCapContext context = new ReCapContext())
             {
-                var result = from car in context.Cars
-                             join color in context.Colors on car.ColorId equals color.ColorId
-                             join brand in context.Brands on car.BrandId equals brand.BrandId
-                             select new CarDetailsDto
-                             {
-                                 BrandName = brand.BrandName,
-                                 CarId = car.CarId,
-                                 CarName = car.CarName,
-                                 ColorName = color.ColorName,
-                                 DailyPrice = car.DailyPrice,
-                                 Description = car.Description,
-                                 ModelYear = car.ModelYear
-                             };
+                var result = context.Cars
+                    .Include(c => c.Color) // class'lara ayirma
+                    .Include(c => c.Brand) // IQueryable
+                    .Include(c => c.CarImages)
+                    .Where(c => c.CarId == carId)
+                    .Select(c => new CarDetailsWithImagesDto
+                    {
+                        BrandName = c.Brand.BrandName == null ? "Marka yok" : c.Brand.BrandName,
+                        ColorName = c.Color.ColorName == null ? "Renk yok" : c.Color.ColorName,
+                        DailyPrice = c.DailyPrice,
+                        CarName = c.CarName,
+                        CarId = c.CarId,
+                        Description = c.Description,
+                        ModelYear = c.ModelYear,
+                        CarImages = c.CarImages.Where(ci => ci.CarId == c.CarId).ToList()
+                    });
 
-                return result.SingleOrDefault(c => c.CarId == carId);
+                return result.SingleOrDefault();
             }
         }
     }

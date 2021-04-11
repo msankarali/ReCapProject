@@ -9,6 +9,6 @@ namespace DataAccess.Abstract
     {
         List<CarDetailsDto> GetAllCarsWithDetails(CarFilterDto carFilterDto);
 
-        CarDetailsDto GetCarWithDetailById(int carId);
+        CarDetailsWithImagesDto GetCarWithDetailById(int carId);
     }
 }

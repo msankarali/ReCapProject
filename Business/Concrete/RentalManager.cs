@@ -55,16 +55,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<RentalDetailsDto>>(_rentalDal.GetAllRentedCars());
         }
 
-        public IResult Rent(int carId, int customerId)
+        public IResult Rent(Rental rental)
         {
-            //var result = _rentalDal.GetAll(r => r.CarId == carId && r.ReturnDate == null);
-            var result = _rentalDal.Get(r => r.CarId == carId && r.ReturnDate == null);
-            //var result2 = _rentalDal.GetAll(r => r.CarId == carId && r.ReturnDate == null).Last();
-
-            //if (result.Count > 0)
-            //{
-            //    return new ErrorResult("Bu araç şuan kullanımda olduğu için kiralanamaz!");
-            //}
+            var result = _rentalDal.Get(r => r.CarId == rental.CarId && r.ReturnDate == null);
 
             var rslt = BusinessRules.Run(
                 //CheckIfUserOlderThanTwenty(_customerService.GetUserIdByCustomerId(customerId).Data)
@@ -78,19 +71,20 @@ namespace Business.Concrete
 
             if (result != null) return new ErrorResult("Bu araç şuan kullanımda olduğu için kiralanamaz!");
 
+            //TODO: here
             _rentalDal.Add(new Rental
             {
-                CarId = carId,
-                CustomerId = customerId,
+                CarId = rental.CarId,
+                CustomerId = 0,
                 RentDate = DateTime.Now,
                 ReturnDate = null
             });
             return new SuccessResult("Araç kiralama işlemi başarılı!");
         }
 
-        public IResult ReturnCar(int carId, int customerId)
+        public IResult ReturnCar(Rental rental)
         {
-            var result = _rentalDal.Get(r => r.CarId == carId && r.ReturnDate == null);
+            var result = _rentalDal.Get(r => r.CarId == rental.CarId && r.ReturnDate == null);
 
             if (result != null) return new ErrorResult(Messages.CarNotGotBack);
 

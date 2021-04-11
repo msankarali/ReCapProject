@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -15,17 +16,17 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Rent")]
-        public IActionResult Rent(int carId, int customerId)
+        public IActionResult Rent(Rental rental)
         {
-            var result = _rentalService.Rent(carId, customerId);
+            var result = _rentalService.Rent(rental);
             if (result.Success) return Ok(result);
             return BadRequest(result);
         }
 
         [HttpPost("ReturnCar")]
-        public IActionResult ReturnCar(int carId, int customerId)
+        public IActionResult ReturnCar(Rental rental)
         {
-            var result = _rentalService.ReturnCar(carId, customerId);
+            var result = _rentalService.ReturnCar(rental);
             if (result.Success) return Ok(result);
             return BadRequest(result);
         }

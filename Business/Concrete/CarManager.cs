@@ -101,9 +101,9 @@ namespace Business.Concrete
             return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == carId));
         }
 
-        public IDataResult<CarDetailsDto> GetCarWithDetailByCarId(int carId)
+        public IDataResult<CarDetailsWithImagesDto> GetCarWithDetailsByCarId(int carId)
         {
-            return new SuccessDataResult<CarDetailsDto>(_carDal.GetCarWithDetailById(carId));
+            return new SuccessDataResult<CarDetailsWithImagesDto>(_carDal.GetCarWithDetailById(carId));
         }
         
         public IResult Update(Car car)

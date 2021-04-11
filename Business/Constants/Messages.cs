@@ -39,6 +39,10 @@
 
         public static string AuthorizationDenied = "Yetkiniz yok";
 
+        public static string CreditCardAdded = "Kredi kartı başarıyla eklendi";
+        public static string CreditCardDelete = "Kredi kartı başarıyla silindi";
+        public static string CreditCardUpdated = "Kredi kartı başarıyla güncellendi";
+
         #endregion
     }
 }
